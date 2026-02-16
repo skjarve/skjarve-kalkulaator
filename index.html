@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Treeningute valik ja kuutasu (SK Järve)</title>
+  <style>
+    :root { --bg:#ffffff; --text:#111; --muted:#555; --card:#f6f7f9; --line:#e6e8ee; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); margin:0; }
+    .wrap { max-width: 860px; margin: 24px auto; padding: 0 16px 48px; }
+    h1 { font-size: 28px; margin: 0 0 12px; }
+    .note { color: var(--muted); line-height: 1.45; margin-bottom: 16px; }
+    .tariff { background: var(--card); border: 1px solid var(--line); padding: 12px 14px; border-radius: 12px; margin: 14px 0 18px; }
+    .tariff ul { margin: 8px 0 0 18px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .section { border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+    .section h2 { font-size: 18px; margin: 0 0 6px; }
+    .section .addr { margin: 0 0 10px; color: var(--muted); }
+    .checks { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    label.chk { display:flex; gap:10px; align-items:flex-start; padding: 10px 10px; border: 1px solid var(--line); border-radius: 12px; background:#fff; }
+    label.chk:hover { background:#fafbfc; }
+    input[type="checkbox"]{ transform: translateY(2px); width: 18px; height: 18px; }
+    .summary { position: sticky; bottom: 0; background: #fff; border-top: 1px solid var(--line); padding: 12px 0; margin-top: 16px; }
+    .sumcard { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center; }
+    .big { font-weight: 800; font-size: 18px; }
+    .pill { display:inline-block; padding: 4px 10px; border-radius: 999px; background:#fff; border:1px solid var(--line); color:var(--muted); }
+    .warn { color:#b42318; font-weight:600; }
+    .btnrow { margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap; }
+    button { border:0; border-radius: 12px; padding: 10px 14px; font-weight: 700; cursor:pointer; }
+    .btn-clear { background:#eef1f6; }
+    .btn-disabled { opacity:.5; cursor:not-allowed; }
+    @media (min-width: 760px){
+      .grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Treeningute valik ja kuutasu arvutamine (SK Järve)</h1>
+
+    <div class="note">
+      Vali sobivad treeningud (võid valida mitu). Kuutasu sõltub <b>treeningute arvust nädalas</b>.
+    </div>
+
+    <div class="tariff">
+      <b>Hinnakiri:</b>
+      <ul>
+        <li>1 treening nädalas — 25 €</li>
+        <li>2 treeningut nädalas — 40 €</li>
+        <li>3 treeningut nädalas — 50 €</li>
+        <li>4+ treeningut nädalas — 60 €</li>
+      </ul>
+    </div>
+
+    <div class="grid">
+
+      <div class="section">
+        <h2>Võimlemine — TAMMIKU PÕHIKOOL</h2>
+        <p class="addr"><i>Kohtla-Järve, Puru tee 38. Võimlemise saal</i><br/>Treenerid: G. Stepanjan, A. Škaleta</p>
+        <div class="checks">
+          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–7a TAMMIKU — T 17:00–18:00">Võimlemine 3–7a TAMMIKU — T 17:00–18:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–7a TAMMIKU — N 17:00–18:00">Võimlemine 3–7a TAMMIKU — N 17:00–18:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 8–14a TAMMIKU — T 18:00–19:00">Võimlemine 8–14a TAMMIKU — T 18:00–19:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 8–14a TAMMIKU — N 18:00–19:00">Võimlemine 8–14a TAMMIKU — N 18:00–19:00</label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Võimlemine — VAHTRA loomekeskus</h2>
+        <p class="addr"><i>Kohtla-Järve, Järveküla tee 39. Võimlemise saal</i><br/>Treenerid: G. Stepanjan, A. Škaleta</p>
+        <div class="checks">
+          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–10a VAHTRA — E 17:00–18:00">Võimlemine 3–10a VAHTRA — E 17:00–18:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–10a VAHTRA — K 17:00–18:00">Võimlemine 3–10a VAHTRA — K 17:00–18:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–10a VAHTRA — R 17:00–18:00">Võimlemine 3–10a VAHTRA — R 17:00–18:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–10a VAHTRA — L 11:00–12:00">Võimlemine 3–10a VAHTRA — L 11:00–12:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 11–16a VAHTRA — E 18:00–19:00">Võimlemine 11–16a VAHTRA — E 18:00–19:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 11–16a VAHTRA — K 18:00–19:00">Võimlemine 11–16a VAHTRA — K 18:00–19:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 11–16a VAHTRA — R 18:00–19:00">Võimlemine 11–16a VAHTRA — R 18:00–19:00</label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Akrobaatika — AHTME SPORDIHALL</h2>
+        <p class="addr"><i>Kohtla-Järve, Ahtme mnt 61. Akrobaatika saal</i><br/>Treenerid: G. Stepanjan, A. Škaleta</p>
+        <div class="checks">
+          <label class="chk"><input type="checkbox" class="slot" value="Akrobaatika 7–14a AHTME — E 14:45–16:00">Akrobaatika 7–14a AHTME — E 14:45–16:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Akrobaatika 7–14a AHTME — T 14:45–16:00">Akrobaatika 7–14a AHTME — T 14:45–16:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Akrobaatika 7–14a AHTME — K 14:45–16:00">Akrobaatika 7–14a AHTME — K 14:45–16:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Akrobaatika 7–14a AHTME — R 14:45–16:00">Akrobaatika 7–14a AHTME — R 14:45–16:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Akrobaatika 7–14a AHTME — L 12:45–14:00">Akrobaatika 7–14a AHTME — L 12:45–14:00</label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Ujumine + saun — WIRU spordikeskus</h2>
+        <p class="addr"><i>Kohtla-Järve, Järveküla tee 41. Ujula</i><br/>Treener: M. Bežko</p>
+        <div class="checks">
+          <label class="chk"><input type="checkbox" class="slot" value="Ujumine+saun 8–19a WIRU — K 18:45–20:00">Ujumine+saun 8–19a WIRU — K 18:45–20:00</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Ujumine+saun 8–19a WIRU — R 18:45–20:00">Ujumine+saun 8–19a WIRU — R 18:45–20:00</label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Jalgpall — WIRU spordikeskus</h2>
+        <p class="addr"><i>Kohtla-Järve, Järveküla tee 41. Jalgpalliväljak ja spordisaal</i><br/>Treenerid: T. Abubov, A. Škaleta</p>
+        <div class="checks">
+          <label class="chk"><input type="checkbox" class="slot" value="Jalgpall 11–12a WIRU — E 18:00–19:30">Jalgpall 11–12a WIRU — E 18:00–19:30</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Jalgpall 11–12a WIRU — T 18:00–19:30">Jalgpall 11–12a WIRU — T 18:00–19:30</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Jalgpall 11–12a WIRU — N 17:00–18:30">Jalgpall 11–12a WIRU — N 17:00–18:30</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Jalgpall 11–12a WIRU — R 17:00–18:30">Jalgpall 11–12a WIRU — R 17:00–18:30</label>
+          <label class="chk"><input type="checkbox" class="slot" value="Jalgpall 11–12a WIRU — L 11:00–13:00">Jalgpall 11–12a WIRU — L 11:00–13:00</label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="summary">
+      <div class="sumcard">
+        <div>
+          <div class="pill">Treeninguid nädalas: <span class="big" id="count">0</span></div>
+          <div style="height:6px"></div>
+          <div class="pill">Kuutasu: <span class="big" id="price">0</span> €</div>
+        </div>
+        <div id="warn" class="warn" style="display:none;">Vali vähemalt 1 treening.</div>
+        <div class="btnrow">
+          <button class="btn-clear" id="clearBtn" type="button">Tühjenda valik</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  const slots = Array.from(document.querySelectorAll(".slot"));
+  const countEl = document.getElementById("count");
+  const priceEl = document.getElementById("price");
+  const warnEl = document.getElementById("warn");
+  const clearBtn = document.getElementById("clearBtn");
+
+  function tariff(n){
+    if(n <= 0) return 0;
+    if(n === 1) return 25;
+    if(n === 2) return 40;
+    if(n === 3) return 50;
+    return 60; // 4+
+  }
+
+  function recalc(){
+    const n = slots.filter(x => x.checked).length;
+    countEl.textContent = String(n);
+    priceEl.textContent = String(tariff(n));
+    warnEl.style.display = (n === 0) ? "block" : "none";
+  }
+
+  slots.forEach(cb => cb.addEventListener("change", recalc));
+  clearBtn.addEventListener("click", () => {
+    slots.forEach(cb => cb.checked = false);
+    recalc();
+  });
+
+  recalc();
+</script>
+</body>
+</html>
