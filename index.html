@@ -3,162 +3,461 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Treeningute valik ja kuutasu (SK Järve)</title>
+  <title>Kohtla-Järve SK JÄRVE — Treeningute valik ja kuutasu</title>
+  <meta name="description" content="Treeningute valik ja kuutasu arvutamine (Kohtla-Järve SK JÄRVE)" />
   <style>
-    :root { --bg:#ffffff; --text:#111; --muted:#555; --card:#f6f7f9; --line:#e6e8ee; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); margin:0; }
-    .wrap { max-width: 860px; margin: 24px auto; padding: 0 16px 48px; }
-    h1 { font-size: 28px; margin: 0 0 12px; }
-    .note { color: var(--muted); line-height: 1.45; margin-bottom: 16px; }
-    .tariff { background: var(--card); border: 1px solid var(--line); padding: 12px 14px; border-radius: 12px; margin: 14px 0 18px; }
-    .tariff ul { margin: 8px 0 0 18px; }
-    .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-    .section { border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
-    .section h2 { font-size: 18px; margin: 0 0 6px; }
-    .section .addr { margin: 0 0 10px; color: var(--muted); }
-    .checks { display: grid; grid-template-columns: 1fr; gap: 8px; }
-    label.chk { display:flex; gap:10px; align-items:flex-start; padding: 10px 10px; border: 1px solid var(--line); border-radius: 12px; background:#fff; }
-    label.chk:hover { background:#fafbfc; }
-    input[type="checkbox"]{ transform: translateY(2px); width: 18px; height: 18px; }
-    .summary { position: sticky; bottom: 0; background: #fff; border-top: 1px solid var(--line); padding: 12px 0; margin-top: 16px; }
-    .sumcard { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center; }
-    .big { font-weight: 800; font-size: 18px; }
-    .pill { display:inline-block; padding: 4px 10px; border-radius: 999px; background:#fff; border:1px solid var(--line); color:var(--muted); }
-    .warn { color:#b42318; font-weight:600; }
-    .btnrow { margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap; }
-    button { border:0; border-radius: 12px; padding: 10px 14px; font-weight: 700; cursor:pointer; }
-    .btn-clear { background:#eef1f6; }
-    .btn-disabled { opacity:.5; cursor:not-allowed; }
-    @media (min-width: 760px){
-      .grid { grid-template-columns: 1fr 1fr; }
+    :root{
+      --brand:#0a52aa;
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:#e2e8f0;
+      --ok:#16a34a;
+      --warn:#b91c1c;
+      --shadow: 0 10px 30px rgba(2,6,23,.08);
+      --radius:18px;
+      --radius2:14px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(900px 420px at 15% -5%, rgba(10,82,170,.12), transparent 60%),
+        radial-gradient(900px 420px at 85% 0%, rgba(10,82,170,.10), transparent 55%),
+        var(--bg);
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1020px; margin:0 auto; padding:28px 16px 64px}
+    .top{
+      display:flex; align-items:center; gap:14px;
+      padding:14px 16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.85);
+      backdrop-filter: blur(8px);
+      border-radius:24px;
+      box-shadow: var(--shadow);
+    }
+    .logo{
+      width:44px; height:44px;
+      border-radius:14px;
+      background: linear-gradient(145deg, rgba(10,82,170,.18), rgba(10,82,170,.06));
+      border:1px solid rgba(10,82,170,.25);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+      overflow:hidden;
+    }
+    .logo img{width:100%; height:100%; object-fit:cover}
+    .brand h1{margin:0; font-size:18px; letter-spacing:.2px}
+    .brand p{margin:2px 0 0; color:var(--muted); font-size:13px}
+
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 920px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+    .card h2{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .sub{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .tariffs{
+      margin-top:10px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+    }
+    @media (max-width: 640px){
+      .tariffs{grid-template-columns:1fr 1fr}
+    }
+    .pill{
+      border:1px solid rgba(10,82,170,.18);
+      border-radius: 14px;
+      padding:10px 10px;
+      background: linear-gradient(180deg, rgba(10,82,170,.08), rgba(10,82,170,.02));
+    }
+    .pill .t1{font-weight:800; font-size:13px}
+    .pill .t2{margin-top:2px; color:var(--muted); font-size:12px}
+
+    .sectionTitle{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin:0 0 10px;
+    }
+    .badge{
+      font-size:12px;
+      color:rgba(10,82,170,.95);
+      background:rgba(10,82,170,.10);
+      border:1px solid rgba(10,82,170,.18);
+      padding:6px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    .location{
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      padding:14px;
+      margin:12px 0;
+      background: linear-gradient(180deg, rgba(255,255,255,1), rgba(246,248,251,.65));
+    }
+    .locHead{display:flex; gap:10px; align-items:flex-start;}
+    .ico{
+      width:36px; height:36px;
+      border-radius:14px;
+      border:1px solid rgba(10,82,170,.18);
+      background: rgba(10,82,170,.06);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+      overflow:hidden;
+    }
+    .ico img{width:100%; height:100%; object-fit:cover}
+    .locTitle{margin:0; font-weight:900; font-size:14px}
+    .locMeta{margin:4px 0 0; color:var(--muted); font-size:12.5px; line-height:1.45}
+    .checks{
+      margin-top:10px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:8px 10px;
+    }
+    @media (max-width: 640px){ .checks{grid-template-columns:1fr} }
+    label.chk{
+      display:flex; align-items:center; gap:10px;
+      border:1px solid var(--line);
+      background: #fff;
+      padding:10px 10px;
+      border-radius: 14px;
+      cursor:pointer;
+      transition: transform .06s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    label.chk:hover{
+      border-color: rgba(10,82,170,.35);
+      box-shadow: 0 8px 18px rgba(2,6,23,.06);
+    }
+    label.chk:active{transform: translateY(1px)}
+    input[type="checkbox"]{width:18px; height:18px; accent-color: var(--brand);}
+    .short{font-weight:800; font-size:13px; letter-spacing:.1px;}
+
+    .right .card{position:sticky; top:14px}
+    @media (max-width: 920px){ .right .card{position:static} }
+
+    .result{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    .box{
+      border:1px solid var(--line);
+      border-radius: 16px;
+      padding:12px;
+      background: linear-gradient(180deg, rgba(10,82,170,.06), rgba(255,255,255,1));
+    }
+    .box .k{color:var(--muted); font-size:12px}
+    .box .v{margin-top:6px; font-size:22px; font-weight:950}
+    .hint{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px dashed rgba(185,28,28,.35);
+      background: rgba(185,28,28,.06);
+      color: var(--warn);
+      font-size: 13px;
+      display:none;
+    }
+
+    .selList{
+      margin-top:12px;
+      border-top:1px solid var(--line);
+      padding-top:12px;
+    }
+    .selList h3{
+      margin:0 0 8px;
+      font-size:13px;
+      color:var(--muted);
+      font-weight:900;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+    }
+    .group{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding:10px;
+      margin:10px 0;
+      background:#fff;
+    }
+    .groupTitle{font-weight:950; font-size:13px; margin:0 0 6px;}
+    ul.clean{margin:0; padding-left:18px;}
+    ul.clean li{margin:4px 0; font-size:13px; color:var(--muted)}
+    .mini{font-size:12px; color:var(--muted); margin-top:4px}
+
+    .formgrid{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width: 640px){ .formgrid{grid-template-columns:1fr} }
+    .field{display:flex; flex-direction:column; gap:6px;}
+    .field label{font-size:12.5px; color:var(--muted); font-weight:800;}
+    input[type="text"], input[type="email"], input[type="tel"], textarea{
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      outline:none;
+      font-size:14px;
+    }
+    input:focus, textarea:focus{
+      border-color: rgba(10,82,170,.45);
+      box-shadow: 0 0 0 4px rgba(10,82,170,.12);
+    }
+    textarea{min-height:96px; resize:vertical}
+
+    .dobRow{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+    }
+    .dobRow .left{display:flex; flex-direction:column; gap:4px;}
+    .dobRow .k{font-size:12.5px; color:var(--muted); font-weight:800}
+    .dobRow .v{font-size:14px; font-weight:950}
+    .dobRow .v.muted{color:#94a3b8; font-weight:900}
+
+    .terms{
+      margin-top:12px;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .termsTop{
+      padding:12px 14px;
+      background: linear-gradient(180deg, rgba(10,82,170,.08), rgba(10,82,170,.02));
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .termsTop b{font-size:13px}
+    .termsBody{padding:12px 14px}
+    .pair{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      padding:10px 0;
+      border-top:1px solid var(--line);
+    }
+    .pair:first-child{border-top:none}
+    .pair .et, .pair .ru{font-size:13px; line-height:1.45;}
+    .pair .et b, .pair .ru b{color:var(--muted); font-size:12px; display:block; margin-bottom:4px}
+    @media (max-width: 720px){ .pair{grid-template-columns:1fr} }
+
+    .consent{
+      margin-top:12px;
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px;
+      border:1px solid rgba(10,82,170,.18);
+      background: rgba(10,82,170,.06);
+      border-radius: 16px;
+    }
+    .consent p{margin:0; font-size:13px; color:var(--text); line-height:1.45}
+    .consent .muted{color:var(--muted); font-size:12.5px; margin-top:4px}
+
+    .pay{
+      margin-top:12px;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background:#fff;
+      padding:12px 14px;
+    }
+    .payHead{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom:8px;
+    }
+    .btn{
+      border:1px solid rgba(10,82,170,.25);
+      background: rgba(10,82,170,.08);
+      color: var(--brand);
+      border-radius: 999px;
+      padding:8px 12px;
+      font-weight:900;
+      font-size:12.5px;
+      cursor:pointer;
+    }
+    .btn:hover{background: rgba(10,82,170,.12)}
+    pre.copy{
+      margin:0;
+      padding:10px 12px;
+      border-radius: 14px;
+      background: #0b1220;
+      color: #e5e7eb;
+      overflow:auto;
+      font-size:12.5px;
+      line-height:1.45;
+      border:1px solid rgba(148,163,184,.22);
+      white-space:pre-wrap;
+    }
+
+    .actions{
+      margin-top:14px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .primary{
+      background: var(--brand);
+      color:#fff;
+      border:1px solid rgba(10,82,170,.45);
+      padding:11px 14px;
+      border-radius: 14px;
+      font-weight:950;
+      cursor:pointer;
+    }
+    .primary:hover{filter:brightness(1.05)}
+    .ghost{
+      background:#fff;
+      color:var(--brand);
+      border:1px solid rgba(10,82,170,.25);
+      padding:11px 14px;
+      border-radius: 14px;
+      font-weight:950;
+      cursor:pointer;
+    }
+    .ghost:hover{background: rgba(10,82,170,.06)}
+    .foot{
+      margin-top:14px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.45;
+    }
+    .okToast{
+      margin-top:8px;
+      display:none;
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(22,163,74,.25);
+      background: rgba(22,163,74,.08);
+      color: var(--ok);
+      font-weight:900;
+      font-size:12.5px;
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <h1>Treeningute valik ja kuutasu arvutamine (SK Järve)</h1>
-
-    <div class="note">
-      Vali sobivad treeningud (võid valida mitu). Kuutasu sõltub <b>treeningute arvust nädalas</b>.
-    </div>
-
-    <div class="tariff">
-      <b>Hinnakiri:</b>
-      <ul>
-        <li>1 treening nädalas — 25 €</li>
-        <li>2 treeningut nädalas — 40 €</li>
-        <li>3 treeningut nädalas — 50 €</li>
-        <li>4+ treeningut nädalas — 60 €</li>
-      </ul>
+    <div class="top">
+      <div class="logo" title="SK Järve">
+        <img src="assets/logo.png" alt="SK Järve logo"
+             onerror="this.style.display='none'; this.parentElement.textContent='J'; this.parentElement.style.fontWeight='950'; this.parentElement.style.color='var(--brand)';">
+      </div>
+      <div class="brand">
+        <h1>Treeningute valik ja kuutasu arvutamine (Kohtla-Järve SK JÄRVE)</h1>
+        <p>Kuutasu arvestus • Treeningute valik • Andmed arve väljastamiseks</p>
+      </div>
     </div>
 
     <div class="grid">
+      <!-- LEFT -->
+      <div class="left">
+        <div class="card">
+          <div class="sectionTitle">
+            <h2>Info</h2>
+            <span class="badge">ET → RU</span>
+          </div>
+          <div class="sub">
+            <b>ET:</b> Kuutasu sõltub valitud treeningute arvust nädalas. Võid valida erinevaid spordialasid (nt lisada lapsele ujumise WIRU-s).<br/>
+            <b>RU:</b> Месячная оплата зависит от количества выбранных тренировок в неделю. Можно выбрать разные виды спорта (например, добавить ребёнку плавание в WIRU).
+          </div>
 
-      <div class="section">
-        <h2>Võimlemine — TAMMIKU PÕHIKOOL</h2>
-        <p class="addr"><i>Kohtla-Järve, Puru tee 38. Võimlemise saal</i><br/>Treenerid: G. Stepanjan, A. Škaleta</p>
-        <div class="checks">
-          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–7a TAMMIKU — T 17:00–18:00">Võimlemine 3–7a TAMMIKU — T 17:00–18:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–7a TAMMIKU — N 17:00–18:00">Võimlemine 3–7a TAMMIKU — N 17:00–18:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 8–14a TAMMIKU — T 18:00–19:00">Võimlemine 8–14a TAMMIKU — T 18:00–19:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 8–14a TAMMIKU — N 18:00–19:00">Võimlemine 8–14a TAMMIKU — N 18:00–19:00</label>
+          <div style="margin-top:12px;">
+            <div class="sectionTitle" style="margin-bottom:8px;">
+              <h2 style="margin:0;">Kuutasu kuus</h2>
+              <span class="badge">treeningute arv nädalas</span>
+            </div>
+
+            <div class="tariffs" aria-label="Tariffs">
+              <div class="pill"><div class="t1">1 treening</div><div class="t2">25 €</div></div>
+              <div class="pill"><div class="t1">2 treeningut</div><div class="t2">40 €</div></div>
+              <div class="pill"><div class="t1">3 treeningut</div><div class="t2">50 €</div></div>
+              <div class="pill"><div class="t1">4 treeningut</div><div class="t2">60 €</div></div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="section">
-        <h2>Võimlemine — VAHTRA loomekeskus</h2>
-        <p class="addr"><i>Kohtla-Järve, Järveküla tee 39. Võimlemise saal</i><br/>Treenerid: G. Stepanjan, A. Škaleta</p>
-        <div class="checks">
-          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–10a VAHTRA — E 17:00–18:00">Võimlemine 3–10a VAHTRA — E 17:00–18:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–10a VAHTRA — K 17:00–18:00">Võimlemine 3–10a VAHTRA — K 17:00–18:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–10a VAHTRA — R 17:00–18:00">Võimlemine 3–10a VAHTRA — R 17:00–18:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 3–10a VAHTRA — L 11:00–12:00">Võimlemine 3–10a VAHTRA — L 11:00–12:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 11–16a VAHTRA — E 18:00–19:00">Võimlemine 11–16a VAHTRA — E 18:00–19:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 11–16a VAHTRA — K 18:00–19:00">Võimlemine 11–16a VAHTRA — K 18:00–19:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Võimlemine 11–16a VAHTRA — R 18:00–19:00">Võimlemine 11–16a VAHTRA — R 18:00–19:00</label>
-        </div>
-      </div>
+        <div class="card" style="margin-top:16px;">
+          <div class="sectionTitle">
+            <h2>Vali sobivad treeningud (võid valida mitu)</h2>
+            <span class="badge">ainult vanus • päev • kell</span>
+          </div>
 
-      <div class="section">
-        <h2>Akrobaatika — AHTME SPORDIHALL</h2>
-        <p class="addr"><i>Kohtla-Järve, Ahtme mnt 61. Akrobaatika saal</i><br/>Treenerid: G. Stepanjan, A. Škaleta</p>
-        <div class="checks">
-          <label class="chk"><input type="checkbox" class="slot" value="Akrobaatika 7–14a AHTME — E 14:45–16:00">Akrobaatika 7–14a AHTME — E 14:45–16:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Akrobaatika 7–14a AHTME — T 14:45–16:00">Akrobaatika 7–14a AHTME — T 14:45–16:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Akrobaatika 7–14a AHTME — K 14:45–16:00">Akrobaatika 7–14a AHTME — K 14:45–16:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Akrobaatika 7–14a AHTME — R 14:45–16:00">Akrobaatika 7–14a AHTME — R 14:45–16:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Akrobaatika 7–14a AHTME — L 12:45–14:00">Akrobaatika 7–14a AHTME — L 12:45–14:00</label>
-        </div>
-      </div>
+          <!-- 1: TAMMIKU -->
+          <div class="location">
+            <div class="locHead">
+              <div class="ico" title="Võimlemine">
+                <img src="assets/gymnastik.png" alt="Võimlemine" onerror="this.style.display='none'">
+              </div>
+              <div>
+                <p class="locTitle">Võimlemine — TAMMIKU PÕHIKOOL</p>
+                <p class="locMeta">Kohtla-Järve, Puru tee 38 (võimlemissaal)<br/>Treenerid: G. Stepanjan, A. Škaleta</p>
+              </div>
+            </div>
+            <div class="checks">
+              <label class="chk"><input class="slot" type="checkbox" data-loc="Võimlemine — TAMMIKU PÕHIKOOL" data-meta="Kohtla-Järve, Puru tee 38 (võimlemissaal)" value="3–7a — T 17:00–18:00"><span class="short">3–7a — T 17:00–18:00</span></label>
+              <label class="chk"><input class="slot" type="checkbox" data-loc="Võimlemine — TAMMIKU PÕHIKOOL" data-meta="Kohtla-Järve, Puru tee 38 (võimlemissaal)" value="3–7a — N 17:00–18:00"><span class="short">3–7a — N 17:00–18:00</span></label>
+              <label class="chk"><input class="slot" type="checkbox" data-loc="Võimlemine — TAMMIKU PÕHIKOOL" data-meta="Kohtla-Järve, Puru tee 38 (võimlemissaal)" value="8–14a — T 18:00–19:00"><span class="short">8–14a — T 18:00–19:00</span></label>
+              <label class="chk"><input class="slot" type="checkbox" data-loc="Võimlemine — TAMMIKU PÕHIKOOL" data-meta="Kohtla-Järve, Puru tee 38 (võimlemissaal)" value="8–14a — N 18:00–19:00"><span class="short">8–14a — N 18:00–19:00</span></label>
+            </div>
+          </div>
 
-      <div class="section">
-        <h2>Ujumine + saun — WIRU spordikeskus</h2>
-        <p class="addr"><i>Kohtla-Järve, Järveküla tee 41. Ujula</i><br/>Treener: M. Bežko</p>
-        <div class="checks">
-          <label class="chk"><input type="checkbox" class="slot" value="Ujumine+saun 8–19a WIRU — K 18:45–20:00">Ujumine+saun 8–19a WIRU — K 18:45–20:00</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Ujumine+saun 8–19a WIRU — R 18:45–20:00">Ujumine+saun 8–19a WIRU — R 18:45–20:00</label>
-        </div>
-      </div>
+          <!-- 2: VAHTRA -->
+          <div class="location">
+            <div class="locHead">
+              <div class="ico" title="Võimlemine">
+                <img src="assets/gymnastik.png" alt="Võimlemine" onerror="this.style.display='none'">
+              </div>
+              <div>
+                <p class="locTitle">Võimlemine — VAHTRA loomekeskus</p>
+                <p class="locMeta">Kohtla-Järve, Järveküla tee 39 (võimlemissaal)<br/>Treenerid: G. Stepanjan, A. Škaleta</p>
+              </div>
+            </div>
+            <div class="checks">
+              <label class="chk"><input class="slot" type="checkbox" data-loc="Võimlemine — VAHTRA loomekeskus" data-meta="Kohtla-Järve, Järveküla tee 39 (võimlemissaal)" value="3–10a — E 17:00–18:00"><span class="short">3–10a — E 17:00–18:00</span></label>
+              <label class="chk"><input class="slot" type="checkbox" data-loc="Võimlemine — VAHTRA loomekeskus" data-meta="Kohtla-Järve, Järveküla tee 39 (võimlemissaal)" value="3–10a — K 17:00–18:00"><span class="short">3–10a — K 17:00–18:00</span></label>
+              <label class="chk"><input class="slot" type="checkbox" data-loc="Võimlemine — VAHTRA loomekeskus" data-meta="Kohtla-Järve, Järveküla tee 39 (võimlemissaal)" value="3–10a — R 17:00–18:00"><span class="short">3–10a — R 17:00–18:00</span></label>
+              <label class="chk"><input class="slot" type="checkbox" data-loc="Võimlemine — VAHTRA loomekeskus" data-meta="Kohtla-Järve, Järveküla tee 39 (võimlemissaal)" value="3–10a — L 11:00–12:00"><span class="short">3–10a — L 11:00–12:00</span></label>
 
-      <div class="section">
-        <h2>Jalgpall — WIRU spordikeskus</h2>
-        <p class="addr"><i>Kohtla-Järve, Järveküla tee 41. Jalgpalliväljak ja spordisaal</i><br/>Treenerid: T. Abubov, A. Škaleta</p>
-        <div class="checks">
-          <label class="chk"><input type="checkbox" class="slot" value="Jalgpall 11–12a WIRU — E 18:00–19:30">Jalgpall 11–12a WIRU — E 18:00–19:30</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Jalgpall 11–12a WIRU — T 18:00–19:30">Jalgpall 11–12a WIRU — T 18:00–19:30</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Jalgpall 11–12a WIRU — N 17:00–18:30">Jalgpall 11–12a WIRU — N 17:00–18:30</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Jalgpall 11–12a WIRU — R 17:00–18:30">Jalgpall 11–12a WIRU — R 17:00–18:30</label>
-          <label class="chk"><input type="checkbox" class="slot" value="Jalgpall 11–12a WIRU — L 11:00–13:00">Jalgpall 11–12a WIRU — L 11:00–13:00</label>
-        </div>
-      </div>
+              <label class="chk"><input class="slot" type="checkbox" data-loc="Võimlemine — VAHTRA loomekeskus" data-meta="Kohtla-Järve, Järveküla tee 39 (võimlemissaal)" value="11–16a — E 18:00–19:00"><span class="short">11–16a — E 18:00–19:00</span></label>
+              <label class="chk"><input class="slot" type="checkbox" data-loc="Võimlemine — VAHTRA loomekeskus" data-meta="Kohtla-Järve, Järveküla tee 39 (võimlemissaal)" value="11–16a — K 18:00–19:00"><span class="short">11–16a — K 18:00–19:00</span></label>
+              <label class="chk"><input class="slot" type="checkbox" data-loc="Võimlemine — VAHTRA loomekeskus" data-meta="Kohtla-Järve, Järveküla tee 39 (võimlemissaal)" value="11–16a — R 18:00–19:00"><span class="short">11–16a — R 18:00–19:00</span></label>
+            </div>
+          </div>
 
-    </div>
-
-    <div class="summary">
-      <div class="sumcard">
-        <div>
-          <div class="pill">Treeninguid nädalas: <span class="big" id="count">0</span></div>
-          <div style="height:6px"></div>
-          <div class="pill">Kuutasu: <span class="big" id="price">0</span> €</div>
-        </div>
-        <div id="warn" class="warn" style="display:none;">Vali vähemalt 1 treening.</div>
-        <div class="btnrow">
-          <button class="btn-clear" id="clearBtn" type="button">Tühjenda valik</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-<script>
-  const slots = Array.from(document.querySelectorAll(".slot"));
-  const countEl = document.getElementById("count");
-  const priceEl = document.getElementById("price");
-  const warnEl = document.getElementById("warn");
-  const clearBtn = document.getElementById("clearBtn");
-
-  function tariff(n){
-    if(n <= 0) return 0;
-    if(n === 1) return 25;
-    if(n === 2) return 40;
-    if(n === 3) return 50;
-    return 60; // 4+
-  }
-
-  function recalc(){
-    const n = slots.filter(x => x.checked).length;
-    countEl.textContent = String(n);
-    priceEl.textContent = String(tariff(n));
-    warnEl.style.display = (n === 0) ? "block" : "none";
-  }
-
-  slots.forEach(cb => cb.addEventListener("change", recalc));
-  clearBtn.addEventListener("click", () => {
-    slots.forEach(cb => cb.checked = false);
-    recalc();
-  });
-
-  recalc();
-</script>
-</body>
-</html>
+          <!-- 3: AHTME -->
+          <div class="location">
+            <div class="locHead">
+              <div class="ico" title="Akrobaatika">
+                <img src="assets/gymnastik.png" alt="Akrobaatika" onerror="this.style.display='none'">
+              </div>
+              <div>
+                <p class="locTitle">Akrobaatika — AHTME SPORDIHALL</p>
+                <p class="locMeta">Kohtla-Järve, Ahtme mnt 61 (akrobaatikasaal)<br/>Treenerid: G. Stepan
