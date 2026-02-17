@@ -310,14 +310,6 @@
     }
     .opt .txt .age{font-weight:950}
     .opt .txt .rest{font-weight:900}
-    .opt .txt small{
-      display:block;
-      font-weight:750;
-      color:rgba(15,23,42,.62);
-      margin-top:2px;
-      font-size:12.5px;
-      line-height:1.15;
-    }
 
     /* Form fields */
     .formTitle{
@@ -415,9 +407,6 @@
       font-weight:750;
     }
 
-    /* Hidden/Reveal */
-    .hidden{display:none !important}
-
     /* Sticky bottom (mobile) */
     .sticky{
       position:fixed;
@@ -469,7 +458,7 @@
             Näiteks võite lisada lapsele ujumise + sauna uues WIRU basseinis.
           </p>
           <p class="ru">
-            Выберите удобные тренировки. Оплата в месяц считается по количеству выбранных тренировок в неделю.
+            Выберите удобные тренировки. Оплата в месяц считается по количеству выбранных тренировных тренировок в неделю.
             Например, можете добавить ребёнку плавание + sauna в новом бассейне WIRU.
           </p>
         </div>
@@ -591,7 +580,7 @@
             </div>
           </div>
 
-          <!-- AKROBAATIKA — AHTME -->
+          <!-- AKROBAATIKA — AHTME (FIXED COACHES) -->
           <div class="section">
             <div class="secHead">
               <div class="icon"><img src="assets/gymnastik.png" alt=""></div>
@@ -599,7 +588,7 @@
                 <p class="secTitle">Akrobaatika — AHTME SPORDIHALL</p>
                 <p class="secMeta">
                   Kohtla-Järve, Ahtme mnt 61 (Akrobaatika saal)<br>
-                  Treener: Andrei Škaleta
+                  Treenerid: G. Stepanjan, A. Škaleta
                 </p>
               </div>
             </div>
@@ -609,7 +598,7 @@
                   data-sport="Akrobaatika"
                   data-place="AHTME SPORDIHALL"
                   data-address="Kohtla-Järve, Ahtme mnt 61 (Akrobaatika saal)"
-                  data-coach="Andrei Škaleta"
+                  data-coach="G. Stepanjan, A. Škaleta"
                   value="Akrobaatika 7–14a — E 14:45–16:00">
                 <div class="txt"><span class="age">7–14a</span> — <span class="rest">E 14:45–16:00</span></div>
               </label>
@@ -618,7 +607,7 @@
                   data-sport="Akrobaatika"
                   data-place="AHTME SPORDIHALL"
                   data-address="Kohtla-Järve, Ahtme mnt 61 (Akrobaatika saal)"
-                  data-coach="Andrei Škaleta"
+                  data-coach="G. Stepanjan, A. Škaleta"
                   value="Akrobaatika 7–14a — T 14:45–16:00">
                 <div class="txt"><span class="age">7–14a</span> — <span class="rest">T 14:45–16:00</span></div>
               </label>
@@ -627,7 +616,7 @@
                   data-sport="Akrobaatika"
                   data-place="AHTME SPORDIHALL"
                   data-address="Kohtla-Järve, Ahtme mnt 61 (Akrobaatika saal)"
-                  data-coach="Andrei Škaleta"
+                  data-coach="G. Stepanjan, A. Škaleta"
                   value="Akrobaatika 7–14a — K 14:45–16:00">
                 <div class="txt"><span class="age">7–14a</span> — <span class="rest">K 14:45–16:00</span></div>
               </label>
@@ -636,7 +625,7 @@
                   data-sport="Akrobaatika"
                   data-place="AHTME SPORDIHALL"
                   data-address="Kohtla-Järve, Ahtme mnt 61 (Akrobaatika saal)"
-                  data-coach="Andrei Škaleta"
+                  data-coach="G. Stepanjan, A. Škaleta"
                   value="Akrobaatika 7–14a — R 14:45–16:00">
                 <div class="txt"><span class="age">7–14a</span> — <span class="rest">R 14:45–16:00</span></div>
               </label>
@@ -645,7 +634,7 @@
                   data-sport="Akrobaatika"
                   data-place="AHTME SPORDIHALL"
                   data-address="Kohtla-Järve, Ahtme mnt 61 (Akrobaatika saal)"
-                  data-coach="Andrei Škaleta"
+                  data-coach="G. Stepanjan, A. Škaleta"
                   value="Akrobaatika 7–14a — L 12:45–14:00">
                 <div class="txt"><span class="age">7–14a</span> — <span class="rest">L 12:45–14:00</span></div>
               </label>
@@ -864,11 +853,6 @@
             </div>
 
             <div class="field">
-              <div class="label">Lapse ID kood (Sportlyzer) <span class="req">*</span></div>
-              <input id="childSportId" type="text" inputmode="numeric" />
-            </div>
-
-            <div class="field">
               <div class="label">Lapsevanema nimi ja perekonnanimi <span class="req">*</span></div>
               <input id="parentName" type="text" autocomplete="name" />
             </div>
@@ -921,7 +905,6 @@
   </div>
 
 <script>
-  // ---------- Helpers ----------
   const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
   const $ = (sel, root=document) => root.querySelector(sel);
 
@@ -930,10 +913,9 @@
     if(n===1) return 25;
     if(n===2) return 40;
     if(n===3) return 50;
-    return 60; // 4+ stays 60 (no extra text)
+    return 60;
   }
 
-  // Estonian personal code: YYMMDD... with century from first digit.
   function birthdateFromIsikukood(code){
     const c = (code||"").replace(/\D/g,"");
     if(c.length < 7) return null;
@@ -951,7 +933,6 @@
     else return null;
 
     const yyyy = century + yy;
-    // Format dd.mm.yyyy
     const d2 = String(dd).padStart(2,'0');
     const m2 = String(mm).padStart(2,'0');
     return `${d2}.${m2}.${yyyy}`;
@@ -987,17 +968,14 @@
     const requiredFilled =
       $("#childName").value.trim() &&
       $("#childId").value.trim() &&
-      $("#childSportId").value.trim() &&
       $("#parentName").value.trim() &&
       $("#parentPhone").value.trim() &&
       $("#parentEmail").value.trim();
 
     const agreed = $("#agree").checked;
-
     $("#btnSend").disabled = !(requiredFilled && agreed);
   }
 
-  // ---------- Main logic ----------
   const btnCalc = $("#btnCalc");
   const btnCalcMobile = $("#btnCalcMobile");
   const afterCalc = $("#afterCalc");
@@ -1025,7 +1003,6 @@
     formCard.style.display = "block";
     calcWarn.style.display = "none";
 
-    // birthdate from isikukood (only show when we actually have it)
     const b = birthdateFromIsikukood($("#childId").value);
     if(b){
       $("#birthValue").textContent = b;
@@ -1035,13 +1012,11 @@
       $("#birthValue").textContent = "—";
     }
 
-    // On mobile: scroll to summary so user sees result immediately
     afterCalc.scrollIntoView({behavior:"smooth", block:"start"});
     validateSendButton();
   }
 
   btnCalc.addEventListener("click", ()=>{
-    // If nothing selected, show gentle message (no harsh RU/labels)
     if($$(".slot:checked").length===0){
       calcWarn.style.display = "block";
       calcWarn.textContent = "Palun vali treeningud vasakul (vähemalt 1).";
@@ -1052,7 +1027,6 @@
 
   btnCalcMobile.addEventListener("click", ()=> btnCalc.click());
 
-  // Update birthdate preview only after calculation area exists (show only when calculated)
   $("#childId").addEventListener("input", ()=>{
     if(afterCalc.style.display !== "block") return;
     const b = birthdateFromIsikukood($("#childId").value);
@@ -1066,15 +1040,12 @@
     validateSendButton();
   });
 
-  // Enable send button only after fields + consent
-  ["childName","childSportId","parentName","parentPhone","parentEmail"].forEach(id=>{
+  ["childName","parentName","parentPhone","parentEmail"].forEach(id=>{
     $("#"+id).addEventListener("input", validateSendButton);
   });
   $("#agree").addEventListener("change", validateSendButton);
 
-  // "Send" (for now: generate confirmation text for copy/paste; Google link later)
   $("#btnSend").addEventListener("click", ()=>{
-    // Create a clean summary text (for future email automation)
     const selected = $$(".slot:checked").map(cb => ({
       value: cb.value,
       sport: cb.dataset.sport,
@@ -1094,7 +1065,6 @@
 
     $("#sentOk").style.display = "block";
 
-    // Optional: open email draft to club (user can send manually)
     const lines = [];
     lines.push("Kohtla-Järve SK JÄRVE — Andmed arve väljastamiseks");
     lines.push("");
@@ -1121,7 +1091,6 @@
     lines.push(`- Nimi: ${$("#childName").value.trim()}`);
     lines.push(`- Isikukood: ${$("#childId").value.trim()}`);
     if(birth) lines.push(`- Sünnikuupäev: ${birth}`);
-    lines.push(`- ID kood (Sportlyzer): ${$("#childSportId").value.trim()}`);
     lines.push("");
     lines.push("Lapsevanem:");
     lines.push(`- Nimi: ${$("#parentName").value.trim()}`);
@@ -1134,11 +1103,8 @@
 
     const subject = encodeURIComponent("Kohtla-Järve SK JÄRVE — Treeningute valik (andmed)");
     const body = encodeURIComponent(lines.join("\n"));
-
-    // Opens draft to club. Parent email sending will be connected later (Google).
     window.location.href = `mailto:info@fcjarve.ee?subject=${subject}&body=${body}`;
   });
-
 </script>
 </body>
 </html>
