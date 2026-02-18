@@ -12,545 +12,337 @@
       --text:#0f172a;
       --muted:#6b7280;
       --line:#dbe3f3;
-      --chip:#eef3ff;
       --ok:#16a34a;
-      --warn:#f59e0b;
       --danger:#ef4444;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:var(--bg);
-    }
-    .wrap{
-      max-width:1180px;
-      margin:0 auto;
-      padding:18px 14px 28px;
-    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg)}
+    .wrap{max-width:1180px;margin:0 auto;padding:18px 14px 28px}
 
-    /* header */
     header{
-      display:flex;
-      gap:14px;
-      align-items:center;
-      padding:14px 14px;
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:16px;
+      display:flex;gap:14px;align-items:center;
+      padding:14px;background:var(--card);
+      border:1px solid var(--line);border-radius:16px;
       box-shadow:0 6px 18px rgba(16,24,40,.06);
     }
-    .logo{
-      width:58px;height:58px;border-radius:14px;
-      display:grid;place-items:center;
-      background:linear-gradient(135deg, rgba(10,82,170,.10), rgba(10,82,170,.04));
-      border:1px solid rgba(10,82,170,.18);
-      overflow:hidden;
-    }
-    .logo img{width:100%;height:100%;object-fit:cover}
-    .hgroup{min-width:0}
-    .club{
-      font-weight:800;
-      font-size:20px;
-      line-height:1.1;
-      margin:0 0 2px 0;
-    }
-    .title{
-      font-weight:700;
-      font-size:18px;
-      margin:0;
-      line-height:1.2;
-    }
-    .subtitle{
-      margin:6px 0 0 0;
-      font-size:13.5px;
-      color:var(--muted);
-      line-height:1.25;
-    }
+    .logo{width:58px;height:58px;border-radius:14px;overflow:hidden;border:1px solid rgba(10,82,170,.18);background:rgba(10,82,170,.06)}
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+    .club{font-weight:900;font-size:20px;margin:0}
+    .title{font-weight:800;font-size:17px;margin:2px 0 0}
+    .subtitle{margin:6px 0 0;color:var(--muted);font-size:13.5px}
 
-    /* layout */
-    .grid{
-      display:grid;
-      grid-template-columns: 1.35fr .85fr;
-      gap:14px;
-      margin-top:14px;
-    }
-    @media (max-width: 980px){
-      .grid{grid-template-columns:1fr}
-    }
+    .grid{display:grid;grid-template-columns:1.35fr .85fr;gap:14px;margin-top:14px}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
 
     .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:16px;
-      box-shadow:0 6px 18px rgba(16,24,40,.06);
+      background:var(--card);border:1px solid var(--line);
+      border-radius:16px;box-shadow:0 6px 18px rgba(16,24,40,.06);
       padding:14px;
     }
-    .card h2{
-      margin:0 0 10px 0;
-      font-size:16px;
-      letter-spacing:.2px;
-    }
+    .card h2{margin:0 0 10px;font-size:16px}
     .muted{color:var(--muted)}
     .small{font-size:12.5px}
-    .ru{color:var(--muted)}
 
-    /* pricing */
-    .pricing{
-      display:grid;
-      gap:8px;
-      margin-top:8px;
-    }
+    /* pricing block (вернули) */
+    .pricing{display:grid;gap:8px;margin:10px 0 14px}
     .priceRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:10px 12px;
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:linear-gradient(180deg, #fff, #fbfcff);
+      display:flex;justify-content:space-between;align-items:center;
+      padding:10px 12px;border:1px solid var(--line);border-radius:12px;
+      background:linear-gradient(180deg,#fff,#fbfcff);
     }
-    .priceRow b{font-weight:800}
-    .priceRow .right{font-weight:800}
+    .priceRow b{font-weight:900}
 
-    /* sport sections */
-    .sportCard{
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:12px;
-      margin-bottom:12px;
-      background:#fff;
-    }
-    .sportHead{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      margin-bottom:10px;
-    }
-    .sportIcon{
-      width:44px;height:44px;border-radius:14px;
-      background:rgba(10,82,170,.06);
-      border:1px solid rgba(10,82,170,.16);
-      display:grid;place-items:center;
-      overflow:hidden;
-      flex:0 0 auto;
-    }
-    .sportIcon img{width:100%;height:100%;object-fit:cover}
-    .sportMeta{min-width:0}
-    .sportName{
-      margin:0;
-      font-size:15.5px;
-      font-weight:800;
-      line-height:1.2;
-    }
-    .sportInfo{
-      margin:4px 0 0 0;
-      color:var(--muted);
-      font-size:12.5px;
-      line-height:1.25;
-    }
+    /* sport blocks */
+    .sportCard{border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:12px;background:#fff}
+    .sportHead{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+    .sportIcon{width:44px;height:44px;border-radius:14px;overflow:hidden;border:1px solid rgba(10,82,170,.16);background:rgba(10,82,170,.06)}
+    .sportIcon img{width:100%;height:100%;object-fit:cover;display:block}
+    .sportName{margin:0;font-size:15.5px;font-weight:900;line-height:1.2}
+    .sportInfo{margin:4px 0 0;color:var(--muted);font-size:12.6px;line-height:1.25}
 
-    /* time items */
-    .timeList{display:grid; gap:8px}
+    .timeList{display:grid;gap:8px}
     .timeItem{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      padding:10px 10px;
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:#fff;
+      display:flex;gap:10px;align-items:center;
+      padding:10px;border:1px solid var(--line);border-radius:12px;background:#fff;
     }
     .timeItem input{width:18px;height:18px}
-    .timeLabel{
-      font-size:14px;
-      font-weight:650;
-      line-height:1.2;
-    }
+    .timeLabel{font-size:14px;font-weight:700}
 
     /* summary */
     .summaryBox{
       border:1px dashed rgba(10,82,170,.45);
       background:rgba(10,82,170,.04);
-      border-radius:14px;
-      padding:12px;
-      margin-top:10px;
+      border-radius:14px;padding:12px;margin-top:10px;
     }
-    .sumTop{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:10px;
-      margin-bottom:10px;
-    }
-    .sumTop .kpi{
-      font-size:13px;
-      color:var(--muted);
-    }
-    .sumTop .big{
-      font-size:18px;
-      font-weight:900;
-      margin-top:2px;
-    }
+    .sumTop{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}
+    .kpi{font-size:13px;color:var(--muted)}
+    .big{font-size:18px;font-weight:900;margin-top:2px}
 
     .selList{display:grid;gap:10px}
-    .selItem{
-      background:rgba(255,255,255,.9);
-      border:1px solid rgba(10,82,170,.12);
-      border-radius:12px;
-      padding:10px;
-    }
+    .selItem{background:#fff;border:1px solid rgba(10,82,170,.12);border-radius:12px;padding:10px}
     .selItem .line1{font-weight:900}
     .selItem .line2{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.25}
 
     /* form */
     .field{display:grid;gap:6px;margin-top:10px}
     label{font-size:12.5px;color:var(--muted)}
-    input[type="text"], input[type="email"], input[type="tel"]{
-      width:100%;
-      padding:11px 12px;
-      border:1px solid var(--line);
-      border-radius:12px;
-      font-size:14px;
-      outline:none;
-      background:#fff;
+    input[type="text"],input[type="email"],input[type="tel"]{
+      width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;font-size:14px;outline:none;background:#fff;
     }
-    input:focus{border-color:rgba(10,82,170,.55); box-shadow:0 0 0 3px rgba(10,82,170,.12)}
-    .hint{font-size:12.3px;color:var(--muted);line-height:1.25}
-    .dobLine{margin-top:6px;font-size:13.2px;font-weight:700}
+    input:focus{border-color:rgba(10,82,170,.55);box-shadow:0 0 0 3px rgba(10,82,170,.12)}
+    .dobLine{margin-top:6px;font-size:13.2px;font-weight:800}
 
-    .agreeRow{
-      display:flex;gap:10px;align-items:flex-start;margin-top:12px;
-      padding:10px 10px;border:1px solid var(--line);border-radius:12px;background:#fff;
-    }
+    .agreeRow{display:flex;gap:10px;align-items:flex-start;margin-top:12px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#fff}
     .agreeRow input{margin-top:2px;width:18px;height:18px}
-    .agreeText{font-size:12.8px;line-height:1.25}
-    .agreeText .ru{display:block;margin-top:4px}
 
     .btn{
-      width:100%;
-      border:none;
-      border-radius:14px;
-      padding:14px 14px;
-      font-size:15px;
-      font-weight:900;
-      cursor:pointer;
-      margin-top:12px;
+      width:100%;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:900;cursor:pointer;margin-top:12px;
     }
-    .btnPrimary{
-      background:var(--blue);
-      color:#fff;
-      box-shadow:0 10px 18px rgba(10,82,170,.18);
-    }
-    .btn:disabled{
-      opacity:.5;
-      cursor:not-allowed;
-      box-shadow:none;
-    }
-    .btn.loading { opacity: .7; }
+    .btnPrimary{background:var(--blue);color:#fff;box-shadow:0 10px 18px rgba(10,82,170,.18)}
+    .btnGhost{background:#fff;border:1px solid rgba(10,82,170,.35);color:var(--blue)}
+    .btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
 
-    /* tiny blocks */
-    .thinBlock{
-      margin-top:10px;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background:#fff;
-      color:var(--muted);
-      font-size:12.6px;
-      line-height:1.25;
-    }
-    .thinBlock a{color:var(--blue);font-weight:700;text-decoration:none}
+    .thinBlock{margin-top:10px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--muted);font-size:12.6px;line-height:1.25}
+    .thinBlock a{color:var(--blue);font-weight:800;text-decoration:none}
     .thinBlock a:hover{text-decoration:underline}
 
-    /* mobile readability */
-    @media (max-width:560px){
-      header{padding:12px}
-      .logo{width:54px;height:54px}
-      .club{font-size:18px}
-      .title{font-size:16.5px}
-      .subtitle{font-size:13px}
-      .timeLabel{font-size:13.5px}
-    }
+    /* step logic */
+    .hidden{display:none !important}
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">
-        <img src="assets/logo.png" alt="SK JÄRVE logo">
-      </div>
-      <div class="hgroup">
-        <p class="club">Kohtla-Järve SK JÄRVE</p>
-        <p class="title">Treeningute valik ja kuutasu arvutamine</p>
-        <p class="subtitle">Выбор тренировок и расчёт ежемесячной платы</p>
-      </div>
-    </header>
+<div class="wrap">
 
-    <div class="grid">
-      <!-- LEFT -->
-      <div class="card">
-        <h2>
-          <b>Vali sobivad treeningud.</b> Kuu maksumus arvutatakse valitud treeningute arvu järgi nädalas.
-          Näiteks võite lisada lapsele ujumise + sauna uues WIRU basseinis.
-          <div class="ru small" style="margin-top:6px;">
-            Выберите удобные тренировки. Оплата в месяц считается по количеству выбранных тренировок в неделю.
-            Например, можете добавить ребенку, плавание +sauna, в новом бассейне WIRU.
-          </div>
-        </h2>
+  <header>
+    <div class="logo">
+      <!-- ВАЖНО: проверь путь -->
+      <img src="assets/logo-jarve.png" alt="SK JÄRVE logo">
+    </div>
+    <div>
+      <p class="club">Kohtla-Järve SK JÄRVE</p>
+      <p class="title">Treeningute valik ja kuutasu arvutamine</p>
+      <p class="subtitle">Выбор тренировок и расчёт ежемесячной платы</p>
+    </div>
+  </header>
 
-        <div id="scheduleStatus" class="hint" style="margin:6px 0 10px 0;"></div>
-        <div id="scheduleRoot"></div>
-      </div>
+  <div class="grid">
 
-      <!-- RIGHT -->
-      <div class="card">
-        <h2 style="margin-bottom:8px;">Kokkuvõte / Итог</h2>
-
-        <div class="summaryBox">
-          <div class="sumTop">
-            <div>
-              <div class="kpi">Treeninguid nädalas</div>
-              <div class="big" id="kpiCount">0</div>
-            </div>
-            <div style="text-align:right">
-              <div class="kpi">Kuutasu</div>
-              <div class="big" id="kpiFee">0 €</div>
-            </div>
-          </div>
-
-          <div class="kpi" style="margin-bottom:8px; font-weight:800; color:var(--text)">Valitud treeningud</div>
-          <div class="ru small" style="margin:-4px 0 10px 0;">Выбранные тренировки</div>
-
-          <div class="selList" id="selectedList"></div>
+    <!-- LEFT -->
+    <div class="card">
+      <h2>
+        <b>Vali sobivad treeningud.</b> Kuu maksumus arvutatakse valitud treeningute arvu järgi nädalas.
+        <div class="small muted" style="margin-top:6px;">
+          Выберите удобные тренировки. Оплата в месяц считается по количеству выбранных тренировок в неделю.
         </div>
+      </h2>
 
-        <div class="thinBlock" id="bankBlock" style="margin-top:12px;">
-          <div style="font-weight:900; color:var(--text); margin-bottom:6px;">Rekvisiidid</div>
-          MTÜ KOHTLA-JÄRVE SK JÄRVE<br>
-          Äriregistri kood: 80029957<br>
-          LHV Pank: EE067700771009780663<br>
-          tel: +372 5665 8809<br>
-          e-mail: info@fcjarve.ee<br>
-          Andrei ŠKALETA
-        </div>
+      <!-- ВЕРНУЛИ блок цен -->
+      <div class="pricing">
+        <div class="priceRow"><div>1× nädalas / 1 раз в неделю</div><div class="right"><b>25 €</b></div></div>
+        <div class="priceRow"><div>2× nädalas / 2 раза в неделю</div><div class="right"><b>40 €</b></div></div>
+        <div class="priceRow"><div>3× nädalas / 3 раза в неделю</div><div class="right"><b>50 €</b></div></div>
+        <div class="priceRow"><div>4×+ nädalas / 4+ раза в неделю</div><div class="right"><b>60 €</b></div></div>
+      </div>
 
-        <div class="thinBlock" id="contractBlock">
-          <div style="font-weight:900; color:var(--text); margin-bottom:6px;">Tingimused</div>
-          <a href="http://www.fcjarve.ee/lepingud/" target="_blank" rel="noopener">www.fcjarve.ee/lepingud/</a>
+      <div id="scheduleStatus" class="small muted" style="margin:6px 0 10px;"></div>
+      <div id="scheduleRoot"></div>
+    </div>
 
-          <div style="margin-top:10px; font-weight:900; color:var(--text);">Olulised punktid</div>
-          <ul style="margin:8px 0 0 18px; padding:0;">
-            <li>Kuutasu tuleb tasuda iga kuu 20. kuupäevaks, sõltumata sellest, kas laps osaleb treeningutel.</li>
-            <li>Treeningutest loobumisest või pausist palume teatada hiljemalt 20. kuupäevaks: info@fcjarve.ee</li>
-            <li>Puudumiste arvestus / soodustused: ümberarvestus ainult pika haiguse korral (arstitõend).</li>
-          </ul>
+    <!-- RIGHT -->
+    <div class="card">
+      <h2 style="margin-bottom:8px;">Kokkuvõte / Итог</h2>
 
-          <div class="ru" style="margin-top:10px;">
-            Важные моменты в договоре:
-            <ul style="margin:8px 0 0 18px; padding:0;">
-              <li>Оплату за месяц нужно вносить до 20 числа каждого месяца, независимо от посещения ребёнком тренировок.</li>
-              <li>О прекращении или паузе просим сообщать не позднее 20 числа, написав: info@fcjarve.ee</li>
-              <li>Пропуски и перерасчёт возможен только при длительной болезни (по справке от врача).</li>
-            </ul>
+      <div class="summaryBox">
+        <div class="sumTop">
+          <div>
+            <div class="kpi">Treeninguid nädalas</div>
+            <div class="big" id="kpiCount">0</div>
+          </div>
+          <div style="text-align:right">
+            <div class="kpi">Kuutasu</div>
+            <div class="big" id="kpiFee">0 €</div>
           </div>
         </div>
 
-        <form id="formDetails" class="card" style="padding:0; border:none; box-shadow:none; background:transparent; margin-top:12px;">
-          <h2 style="margin:0 0 8px 0;">Andmed arve jaoks</h2>
+        <div class="kpi" style="font-weight:900;color:var(--text)">Valitud treeningud</div>
+        <div class="small muted" style="margin:2px 0 10px;">Выбранные тренировки</div>
 
-          <div class="field">
-            <label>Lapse nimi *</label>
-            <input id="childName" type="text" autocomplete="name" required />
-          </div>
+        <div class="selList" id="selectedList"></div>
 
-          <div class="field">
-            <label>Isikukood *</label>
-            <input id="isikukood" type="text" inputmode="numeric" autocomplete="off" required />
-            <div id="dobLine" class="dobLine" style="display:none;"></div>
-          </div>
-
-          <div class="field">
-            <label>Lapsevanema nimi *</label>
-            <input id="parentName" type="text" autocomplete="name" required />
-          </div>
-
-          <div class="field">
-            <label>Telefon *</label>
-            <input id="phone" type="tel" autocomplete="tel" required />
-          </div>
-
-          <div class="field">
-            <label>E-mail *</label>
-            <input id="email" type="email" autocomplete="email" required />
-          </div>
-
-          <div class="agreeRow">
-            <input id="agree" type="checkbox" />
-            <div class="agreeText">
-              Nõustun tingimustega ja kinnitan, et esitatud andmed on õiged.
-              <span class="ru">Я согласен(на) с условиями и подтверждаю, что данные указаны верно.</span>
-            </div>
-          </div>
-
-          <button id="btnSend" class="btn btnPrimary" type="button" disabled>
-            SAADA / ОТПРАВИТЬ
-          </button>
-          <div class="hint" style="margin-top:8px;">
-            Pärast saatmist saadetakse e-mailile kinnitus valitud treeningute ja kuutasuga.<br>
-            <span class="ru">После отправки на e-mail придёт подтверждение с выбранными тренировками и суммой.</span>
-          </div>
-        </form>
+        <!-- ВЕРНУЛИ кнопку "сначала рассчитать" -->
+        <button id="btnCalc" class="btn btnGhost" type="button" disabled>
+          ARVUTA / РАССЧИТАТЬ СТОИМОСТЬ
+        </button>
       </div>
+
+      <div class="thinBlock">
+        <div style="font-weight:900;color:var(--text);margin-bottom:6px;">Rekvisiidid</div>
+        MTÜ KOHTLA-JÄRVE SK JÄRVE<br>
+        Äriregistri kood: 80029957<br>
+        LHV Pank: EE067700771009780663<br>
+        tel: +372 5665 8809<br>
+        e-mail: info@fcjarve.ee<br>
+        Andrei ŠKALETA
+      </div>
+
+      <div class="thinBlock">
+        <div style="font-weight:900;color:var(--text);margin-bottom:6px;">Tingimused</div>
+        <a href="http://www.fcjarve.ee/lepingud/" target="_blank" rel="noopener">www.fcjarve.ee/lepingud/</a>
+      </div>
+
+      <!-- ФОРМА теперь скрыта до расчёта -->
+      <div id="formBlock" class="hidden" style="margin-top:12px;">
+        <h2 style="margin:0 0 8px;">Andmed arve jaoks</h2>
+
+        <div class="field">
+          <label>Lapse nimi *</label>
+          <input id="childName" type="text" required />
+        </div>
+
+        <div class="field">
+          <label>Isikukood *</label>
+          <input id="isikukood" type="text" inputmode="numeric" required />
+          <div id="dobLine" class="dobLine hidden"></div>
+        </div>
+
+        <div class="field">
+          <label>Lapsevanema nimi *</label>
+          <input id="parentName" type="text" required />
+        </div>
+
+        <div class="field">
+          <label>Telefon *</label>
+          <input id="phone" type="tel" required />
+        </div>
+
+        <div class="field">
+          <label>E-mail *</label>
+          <input id="email" type="email" required />
+        </div>
+
+        <div class="agreeRow">
+          <input id="agree" type="checkbox" />
+          <div class="small" style="line-height:1.25;">
+            Nõustun tingimustega ja kinnitan, et esitatud andmed on õiged.<br>
+            <span class="muted">Я согласен(на) с условиями и подтверждаю, что данные указаны верно.</span>
+          </div>
+        </div>
+
+        <button id="btnSend" class="btn btnPrimary" type="button" disabled>
+          SAADA / ОТПРАВИТЬ ДАННЫЕ МНЕ И КЛУБУ
+        </button>
+
+        <div class="small muted" style="margin-top:8px;">
+          Pärast saatmist saadetakse e-mailile kinnitus valitud treeningute ja kuutasuga.<br>
+          После отправки на e-mail придёт подтверждение с выбранными тренировками и суммой.
+        </div>
+      </div>
+
     </div>
   </div>
+</div>
 
 <script>
-  // ====== DATA SOURCE ======
-  // Schedule is loaded from Google Sheets via Apps Script (so you can edit only the sheet).
-  const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzZHD767hPMXWpxDw2cuWqOuJGXGj8uNg-yiKopMNg_6opa0W_xjGUOlhc9fOv8-IkH/exec";
-  // Fallback (used only if API is unreachable)
-  const SCHEDULE_FALLBACK = [
-    {sport:"Võimlemine", place:"TAMMIKU PÕHIKOOL", address:"Kohtla-Järve, Puru tee 38 (Võimlemise saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"3–10a", day:"T", time:"17:00–18:00", active:"Показать", sort:10},
-    {sport:"Võimlemine", place:"TAMMIKU PÕHIKOOL", address:"Kohtla-Järve, Puru tee 38 (Võimlemise saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"3–10a", day:"N", time:"17:00–18:00", active:"Показать", sort:20},
-    {sport:"Võimlemine", place:"TAMMIKU PÕHIKOOL", address:"Kohtla-Järve, Puru tee 38 (Võimlemise saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"11–16a", day:"T", time:"18:00–19:00", active:"Показать", sort:30},
-    {sport:"Võimlemine", place:"TAMMIKU PÕHIKOOL", address:"Kohtla-Järve, Puru tee 38 (Võimlemise saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"11–16a", day:"N", time:"18:00–19:00", active:"Показать", sort:40},
-
-    {sport:"Võimlemine", place:"VAHTRA loomekeskus", address:"Kohtla-Järve, Järveküla tee 39 (Võimlemise saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"3–10a", day:"E", time:"17:00–18:00", active:"Показать", sort:50},
-    {sport:"Võimlemine", place:"VAHTRA loomekeskus", address:"Kohtla-Järve, Järveküla tee 39 (Võimlemise saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"3–10a", day:"K", time:"17:00–18:00", active:"Показать", sort:60},
-    {sport:"Võimlemine", place:"VAHTRA loomekeskus", address:"Kohtla-Järve, Järveküla tee 39 (Võimlemise saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"3–10a", day:"R", time:"17:00–18:00", active:"Показать", sort:70},
-    {sport:"Võimlemine", place:"VAHTRA loomekeskus", address:"Kohtla-Järve, Järveküla tee 39 (Võimlemise saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"3–10a", day:"L", time:"11:00–12:00", active:"Показать", sort:80},
-    {sport:"Võimlemine", place:"VAHTRA loomekeskus", address:"Kohtla-Järve, Järveküla tee 39 (Võimlemise saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"11–16a", day:"E", time:"18:00–19:00", active:"Показать", sort:90},
-    {sport:"Võimlemine", place:"VAHTRA loomekeskus", address:"Kohtla-Järve, Järveküla tee 39 (Võimlemise saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"11–16a", day:"R", time:"18:00–19:00", active:"Показать", sort:100},
-    {sport:"Võimlemine", place:"VAHTRA loomekeskus", address:"Kohtla-Järve, Järveküla tee 39 (Võimlemise saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"11–16a", day:"K", time:"18:00–19:00", active:"Показать", sort:110},
-
-    {sport:"Akrobaatika", place:"AHTME SPORDIHALL", address:"Kohtla-Järve, Ahtme mnt 61 (Akrobaatika saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"7–16a", day:"E", time:"14:45–16:00", active:"Показать", sort:120},
-    {sport:"Akrobaatika", place:"AHTME SPORDIHALL", address:"Kohtla-Järve, Ahtme mnt 61 (Akrobaatika saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"7–16a", day:"T", time:"14:45–16:00", active:"Показать", sort:130},
-    {sport:"Akrobaatika", place:"AHTME SPORDIHALL", address:"Kohtla-Järve, Ahtme mnt 61 (Akrobaatika saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"7–16a", day:"K", time:"14:45–16:00", active:"Показать", sort:140},
-    {sport:"Akrobaatika", place:"AHTME SPORDIHALL", address:"Kohtla-Järve, Ahtme mnt 61 (Akrobaatika saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"7–16a", day:"R", time:"14:45–16:00", active:"Показать", sort:150},
-    {sport:"Akrobaatika", place:"AHTME SPORDIHALL", address:"Kohtla-Järve, Ahtme mnt 61 (Akrobaatika saal)", coach:"Treenerid: G. Stepanjan, A. Škaleta", icon:"gymnastik.png", age:"7–16a", day:"L", time:"12:45–14:00", active:"Показать", sort:160},
-
-    {sport:"Ujumine + saun", place:"WIRU spordikeskus", address:"Kohtla-Järve, Järveküla tee 41 (Ujula)", coach:"Treener: M. Bežko", icon:"ujnine.png", age:"7–19a", day:"T", time:"18:45–20:00", active:"Показать", sort:170},
-    {sport:"Ujumine + saun", place:"WIRU spordikeskus", address:"Kohtla-Järve, Järveküla tee 41 (Ujula)", coach:"Treener: M. Bežko", icon:"ujnine.png", age:"7–19a", day:"N", time:"18:45–20:00", active:"Показать", sort:180},
-
-    {sport:"Fitness", place:"WIRU spordikeskus", address:"Kohtla-Järve, Järveküla tee 41 (jõulusaal)", coach:"Treenerid: M. Bežko A. Škaleta", icon:"gymnastik.png", age:"10–19a", day:"T", time:"17:45–18:45", active:"Показать", sort:190},
-    {sport:"Fitness", place:"WIRU spordikeskus", address:"Kohtla-Järve, Järveküla tee 41 (jõulusaal)", coach:"Treenerid: M. Bežko A. Škaleta", icon:"gymnastik.png", age:"10–19a", day:"N", time:"17:45–18:45", active:"Показать", sort:200},
-
-    {sport:"Jalgpall", place:"WIRU spordikeskus", address:"Kohtla-Järve,Järveküla tee 41. (Jalgpalliväljak ja saal)", coach:"Treenerid: T. Abubov, A. Škaleta", icon:"jpall.png", age:"8–14a", day:"E", time:"17:00–19:00", active:"Показать", sort:210},
-    {sport:"Jalgpall", place:"WIRU spordikeskus", address:"Kohtla-Järve,Järveküla tee 41. (Jalgpalliväljak ja saal)", coach:"Treenerid: T. Abubov, A. Škaleta", icon:"jpall.png", age:"8–14a", day:"K", time:"17:00–19:00", active:"Показать", sort:220},
-    {sport:"Jalgpall", place:"WIRU spordikeskus", address:"Kohtla-Järve,Järveküla tee 41. (Jalgpalliväljak ja saal)", coach:"Treenerid: T. Abubov, A. Škaleta", icon:"jpall.png", age:"8–14a", day:"R", time:"17:00–19:00", active:"Показать", sort:230},
-    {sport:"Jalgpall", place:"WIRU spordikeskus", address:"Kohtla-Järve,Järveküla tee 41. (Jalgpalliväljak ja saal)", coach:"Treenerid: T. Abubov, A. Škaleta", icon:"jpall.png", age:"8–14a", day:"L", time:"11:00–13:00", active:"Показать", sort:240}
-  ];
+  const API_URL = "https://script.google.com/macros/s/AKfycbzZHD767hPMXWpxDw2cuWqOuJGXGj8uNg-yiKopMNg_6opa0W_xjGUOlhc9fOv8-IkH/exec";
 
   let SCHEDULE = [];
-
-  function normalizeActive(v) {
-    if (v === true || v === 1 || v === "1") return true;
-    if (typeof v === "string") {
-      const s = v.trim().toLowerCase();
-      if (["show","visible","yes","true","показать","показывать","да"].includes(s)) return true;
-      if (["hide","hidden","no","false","скрыть","нет"].includes(s)) return false;
-    }
-    // default: show if empty
-    return v == null || v === "" ? true : false;
-  }
-
-  function toNum(v, def=0) {
-    const n = Number(String(v).replace(",", "."));
-    return Number.isFinite(n) ? n : def;
-  }
-
-  async function loadSchedule() {
-    const statusEl = document.getElementById("scheduleStatus");
-    try {
-      if (statusEl) statusEl.textContent = "Laen ajakava… / Загружаю расписание…";
-      const url = SCHEDULE_API_URL + "?action=schedule";
-      const res = await fetch(url, { cache: "no-store" });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const data = await res.json();
-
-      // Accept either: {rows:[...]} or just [...]
-      const rows = Array.isArray(data) ? data : (data && data.rows) ? data.rows : [];
-      const mapped = rows
-        .filter(r => normalizeActive(r.active))
-        .map(r => ({
-          sport: String(r.sport || "").trim(),
-          place: String(r.place || "").trim(),
-          address: String(r.address || "").trim(),
-          coach: String(r.coach || "").trim(),
-          icon: String(r.icon || "").trim(),
-          age: String(r.age || "").trim(),
-          day: String(r.day || "").trim(),
-          time: String(r.time || "").trim(),
-          sort: toNum(r.sort, 9999),
-        }))
-        .filter(r => r.sport && r.place && r.age && r.day && r.time);
-
-      mapped.sort((a,b) => a.sort - b.sort);
-      SCHEDULE = mapped.length ? mapped : SCHEDULE_FALLBACK;
-      if (statusEl) statusEl.textContent = "";
-    } catch (e) {
-      console.warn("Schedule API failed, using fallback:", e);
-      SCHEDULE = SCHEDULE_FALLBACK;
-      if (statusEl) statusEl.textContent = "Ajakava laadimine ebaõnnestus — kasutan varuandmeid. / Не удалось загрузить — использую запасные данные.";
-    }
-  }
-
-  // ====== PRICING RULES ======
-  function calcFee(count){
-    if (count <= 0) return 0;
-    if (count === 1) return 25;
-    if (count === 2) return 40;
-    if (count === 3) return 50;
-    return 60; // 4+
-  }
-
-  // ====== STATE ======
   const selectedSet = new Set();
 
-  // DOM
   const scheduleRoot = document.getElementById("scheduleRoot");
   const selectedList = document.getElementById("selectedList");
   const kpiCount = document.getElementById("kpiCount");
   const kpiFee = document.getElementById("kpiFee");
+  const scheduleStatus = document.getElementById("scheduleStatus");
+
+  const btnCalc = document.getElementById("btnCalc");
+  const formBlock = document.getElementById("formBlock");
+  const btnSend = document.getElementById("btnSend");
 
   const childName = document.getElementById("childName");
   const isikukood = document.getElementById("isikukood");
   const dobLine = document.getElementById("dobLine");
-
   const parentName = document.getElementById("parentName");
   const phone = document.getElementById("phone");
   const email = document.getElementById("email");
   const agree = document.getElementById("agree");
-  const btnSend = document.getElementById("btnSend");
 
-  function keyOf(row){
-    return [
-      row.sport, row.place, row.age, row.day, row.time
-    ].join("||");
+  function calcFee(count){
+    if (count<=0) return 0;
+    if (count===1) return 25;
+    if (count===2) return 40;
+    if (count===3) return 50;
+    return 60;
   }
 
-  function groupKey(row){
-    return [row.sport, row.place, row.address, row.coach, row.icon].join("||");
+  function normalizeActive(v){
+    if (v === true || v === 1 || v === "1") return true;
+    if (typeof v === "string"){
+      const s = v.trim().toLowerCase();
+      if (["показать","показывать","show","yes","true","да"].includes(s)) return true;
+      if (["скрыть","hide","no","false","нет"].includes(s)) return false;
+    }
+    return (v==null || v==="") ? true : false;
+  }
+  function toNum(v, def=9999){
+    const n = Number(String(v).replace(",", "."));
+    return Number.isFinite(n) ? n : def;
+  }
+
+  function keyOf(r){
+    return [r.sport,r.place,r.age,r.day,r.time].join("||");
+  }
+  function groupKey(r){
+    return [r.sport,r.place,r.address,r.coach,r.icon].join("||");
+  }
+
+  async function loadSchedule(){
+    try{
+      scheduleStatus.textContent = "Laen ajakava… / Загружаю расписание…";
+      const res = await fetch(API_URL + "?action=schedule", {cache:"no-store"});
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      const rows = Array.isArray(data) ? data : (data.rows || []);
+
+      // ВАЖНО: поддержка adress/address
+      SCHEDULE = rows
+        .filter(r => normalizeActive(r.active))
+        .map(r => ({
+          sport: String(r.sport||"").trim(),
+          place: String(r.place||"").trim(),
+          address: String((r.adress ?? r.address) || "").trim(),  // <---
+          coach: String(r.coach||"").trim(),
+          icon: String(r.icon||"").trim(),
+          age: String(r.age||"").trim(),
+          day: String(r.day||"").trim(),
+          time: String(r.time||"").trim(),
+          sort: toNum(r.sort)
+        }))
+        .filter(r => r.sport && r.place && r.age && r.day && r.time)
+        .sort((a,b)=>a.sort-b.sort);
+
+      scheduleStatus.textContent = "";
+    }catch(e){
+      console.error(e);
+      scheduleStatus.textContent = "Ei saa ajakava laadida. / Не удалось загрузить расписание.";
+      SCHEDULE = [];
+    }
   }
 
   function renderSchedule(){
     scheduleRoot.innerHTML = "";
+    if (!SCHEDULE.length){
+      scheduleRoot.innerHTML = `<div class="small muted">Нет данных расписания. Проверь Apps Script и таблицу.</div>`;
+      return;
+    }
 
-    // group
     const groups = new Map();
     for (const row of SCHEDULE){
       const gk = groupKey(row);
-      if (!groups.has(gk)){
-        groups.set(gk, {meta: row, rows: []});
-      }
+      if (!groups.has(gk)) groups.set(gk, {meta: row, rows: []});
       groups.get(gk).rows.push(row);
     }
-
-    // stable sorting by first row sort
-    const groupArr = Array.from(groups.values()).sort((a,b) => (a.rows[0].sort||0) - (b.rows[0].sort||0));
+    const groupArr = Array.from(groups.values()).sort((a,b)=>(a.rows[0].sort||0)-(b.rows[0].sort||0));
 
     for (const g of groupArr){
       const meta = g.meta;
@@ -561,35 +353,35 @@
       const head = document.createElement("div");
       head.className = "sportHead";
 
-      const icon = document.createElement("div");
-      icon.className = "sportIcon";
+      const ic = document.createElement("div");
+      ic.className = "sportIcon";
       const img = document.createElement("img");
       img.src = "assets/" + (meta.icon || "gymnastik.png");
       img.alt = meta.sport;
-      icon.appendChild(img);
+      ic.appendChild(img);
 
       const metaDiv = document.createElement("div");
-      metaDiv.className = "sportMeta";
-
-      const h = document.createElement("p");
-      h.className = "sportName";
-      h.textContent = `${meta.sport} — ${meta.place}`;
+      const name = document.createElement("p");
+      name.className = "sportName";
+      name.textContent = `${meta.sport} — ${meta.place}`;
 
       const info = document.createElement("p");
       info.className = "sportInfo";
-      info.innerHTML = `${meta.address}<br>${meta.coach}`;
 
-      metaDiv.appendChild(h);
+      // ВЕРНУЛИ адрес + зал/бассейн (всё в колонке adress/address)
+      const addr = meta.address ? meta.address : "";
+      const coach = meta.coach ? meta.coach : "";
+      info.innerHTML = `${addr}${addr && coach ? "<br>" : ""}${coach}`;
+
+      metaDiv.appendChild(name);
       metaDiv.appendChild(info);
 
-      head.appendChild(icon);
+      head.appendChild(ic);
       head.appendChild(metaDiv);
 
       const list = document.createElement("div");
       list.className = "timeList";
-
-      // sort rows by sort then age/day/time
-      const rowsSorted = [...g.rows].sort((a,b) => (a.sort||0)-(b.sort||0));
+      const rowsSorted = [...g.rows].sort((a,b)=>(a.sort||0)-(b.sort||0));
 
       for (const row of rowsSorted){
         const item = document.createElement("label");
@@ -599,9 +391,9 @@
         cb.type = "checkbox";
         const k = keyOf(row);
         cb.checked = selectedSet.has(k);
-        cb.addEventListener("change", () => {
-          if (cb.checked) selectedSet.add(k);
-          else selectedSet.delete(k);
+
+        cb.addEventListener("change", ()=>{
+          if (cb.checked) selectedSet.add(k); else selectedSet.delete(k);
           updateSummary();
           validateSend();
         });
@@ -625,43 +417,41 @@
     const selected = [];
     for (const row of SCHEDULE){
       const k = keyOf(row);
-      if (selectedSet.has(k)){
-        selected.push(row);
-      }
+      if (selectedSet.has(k)) selected.push(row);
     }
-    // sort by sort
-    selected.sort((a,b)=> (a.sort||0)-(b.sort||0));
+    selected.sort((a,b)=>(a.sort||0)-(b.sort||0));
     return selected;
   }
 
   function updateSummary(){
-    const selected = getSelected();
-    const count = selected.length;
+    const sel = getSelected();
+    const count = sel.length;
     const fee = calcFee(count);
 
     kpiCount.textContent = String(count);
     kpiFee.textContent = fee + " €";
 
     selectedList.innerHTML = "";
-    if (count === 0){
-      const empty = document.createElement("div");
-      empty.className = "hint";
-      empty.textContent = "Vali treeningud vasakult. / Выберите тренировки слева.";
-      selectedList.appendChild(empty);
+    if (!count){
+      selectedList.innerHTML = `<div class="small muted">Vali treeningud vasakult. / Выберите тренировки слева.</div>`;
+      btnCalc.disabled = true;
       return;
     }
 
-    for (const s of selected){
+    btnCalc.disabled = false;
+
+    for (const s of sel){
       const box = document.createElement("div");
       box.className = "selItem";
 
+      // короткая строка как ты просила:
       const l1 = document.createElement("div");
       l1.className = "line1";
-      l1.textContent = `${s.sport} ${s.age} — ${s.day} ${s.time}`;
+      l1.textContent = `${s.sport} — ${s.place} — ${s.age} — ${s.day} ${s.time}`;
 
       const l2 = document.createElement("div");
       l2.className = "line2";
-      l2.textContent = `${s.sport} — ${s.place}`;
+      l2.textContent = `${s.address}${s.address && s.coach ? " • " : ""}${s.coach}`;
 
       box.appendChild(l1);
       box.appendChild(l2);
@@ -669,137 +459,110 @@
     }
   }
 
-  // ====== ISIKUKOOD -> DOB ======
-  function parseDOBFromIsikukood(code){
-    const c = (code || "").trim();
+  // ===== isikukood -> sünnikuupäev =====
+  function parseDOB(code){
+    const c = (code||"").trim();
     if (!/^\d{11}$/.test(c)) return null;
     const first = Number(c[0]);
     const yy = Number(c.slice(1,3));
     const mm = Number(c.slice(3,5));
     const dd = Number(c.slice(5,7));
-
     let century;
-    if (first === 1 || first === 2) century = 1800;
-    else if (first === 3 || first === 4) century = 1900;
-    else if (first === 5 || first === 6) century = 2000;
-    else if (first === 7 || first === 8) century = 2100;
+    if (first===1||first===2) century=1800;
+    else if (first===3||first===4) century=1900;
+    else if (first===5||first===6) century=2000;
+    else if (first===7||first===8) century=2100;
     else return null;
-
-    const year = century + yy;
+    const year = century+yy;
     const d = new Date(year, mm-1, dd);
-    if (d.getFullYear() !== year || d.getMonth() !== mm-1 || d.getDate() !== dd) return null;
+    if (d.getFullYear()!==year || d.getMonth()!==mm-1 || d.getDate()!==dd) return null;
     return d;
   }
-
   function fmtDate(d){
-    const dd = String(d.getDate()).padStart(2,"0");
-    const mm = String(d.getMonth()+1).padStart(2,"0");
-    const yyyy = d.getFullYear();
-    return `${dd}.${mm}.${yyyy}`;
+    const dd=String(d.getDate()).padStart(2,"0");
+    const mm=String(d.getMonth()+1).padStart(2,"0");
+    return `${dd}.${mm}.${d.getFullYear()}`;
   }
-
   function updateDOB(){
-    const d = parseDOBFromIsikukood(isikukood.value);
+    const d = parseDOB(isikukood.value);
     if (!d){
-      dobLine.style.display = "none";
-      dobLine.textContent = "";
+      dobLine.classList.add("hidden");
+      dobLine.textContent="";
       return;
     }
-    dobLine.style.display = "block";
+    dobLine.classList.remove("hidden");
     dobLine.textContent = "Sünnikuupäev: " + fmtDate(d);
   }
 
-  // ====== VALIDATION ======
-  function validateSend(){
-    const selected = getSelected();
-    const okSelected = selected.length > 0;
+  // ===== step button =====
+  btnCalc.addEventListener("click", ()=>{
+    // открываем форму только после расчёта
+    formBlock.classList.remove("hidden");
+    validateSend();
+    // прокрутка аккуратно
+    formBlock.scrollIntoView({behavior:"smooth", block:"start"});
+  });
 
+  function validateSend(){
+    const sel = getSelected();
+    const okSelected = sel.length > 0;
     const okFields =
       childName.value.trim() &&
       isikukood.value.trim() &&
       parentName.value.trim() &&
       phone.value.trim() &&
       email.value.trim();
-
     const okAgree = agree.checked;
-
-    btnSend.disabled = !(okSelected && okFields && okAgree);
-    return !btnSend.disabled;
+    const formVisible = !formBlock.classList.contains("hidden");
+    btnSend.disabled = !(okSelected && okFields && okAgree && formVisible);
   }
 
-  // ====== SEND via Apps Script ======
-  btnSend.addEventListener("click", async () => {
-    if (!validateSend()) return;
+  // ===== send =====
+  btnSend.addEventListener("click", async ()=>{
+    if (btnSend.disabled) return;
 
-    const selected = getSelected();
-    const count = selected.length;
+    const sel = getSelected();
+    const count = sel.length;
     const fee = calcFee(count);
 
-    btnSend.disabled = true;
-    btnSend.classList.add("loading");
-    btnSend.setAttribute("aria-busy","true");
-
     const payload = {
-      meta: {
-        source: window.location.href,
-        sentAt: new Date().toISOString(),
-      },
-      parent: {
-        name: parentName.value.trim(),
-        phone: phone.value.trim(),
-        email: email.value.trim(),
-      },
+      parent: { name: parentName.value.trim(), phone: phone.value.trim(), email: email.value.trim() },
       child: {
         name: childName.value.trim(),
         isikukood: isikukood.value.trim(),
-        dob: dobLine.textContent.replace(/^Sünnikuupäev:\s*/, "").trim() || "",
+        dob: (dobLine.textContent || "").replace(/^Sünnikuupäev:\s*/,"").trim()
       },
       selection: {
-        count,
-        fee,
-        items: selected.map(s => ({
-          sport: s.sport,
-          place: s.place,
-          age: s.age,
-          day: s.day,
-          time: s.time,
-          address: s.address,
-          coach: s.coach,
-        })),
-        itemsShort: selected.map(s => `${s.sport} — ${s.place} — ${s.age} — ${s.day} ${s.time}`),
+        count, fee,
+        itemsShort: sel.map(s => `${s.sport} — ${s.place} — ${s.age} — ${s.day} ${s.time}`)
       },
       links: {
-        logo: "https://skjarve.github.io/skjarve-kalkulaator/assets/logo.png",
-        contract: "http://www.fcjarve.ee/lepingud/",
+        logo: "https://skjarve.github.io/skjarve-kalkulaator/assets/logo-jarve.png",
+        contract: "http://www.fcjarve.ee/lepingud/"
       }
     };
 
-    try {
-      const url = SCHEDULE_API_URL + "?action=send";
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const out = await res.json().catch(() => ({}));
-      if (!res.ok || out.ok !== true) {
-        throw new Error(out.error || ("HTTP " + res.status));
-      }
+    btnSend.disabled = true;
 
+    try{
+      const res = await fetch(API_URL + "?action=send", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(payload)
+      });
+      const out = await res.json().catch(()=>({}));
+      if (!res.ok || out.ok !== true) throw new Error(out.error || ("HTTP "+res.status));
       alert("Aitäh! Andmed saadetud. / Спасибо! Данные отправлены.");
-    } catch (e) {
+    }catch(e){
       console.error(e);
-      alert("Saatmine ebaõnnestus. Proovi uuesti või kirjuta info@fcjarve.ee. / Не удалось отправить. Попробуйте ещё раз или напишите info@fcjarve.ee.");
-    } finally {
-      btnSend.disabled = false;
-      btnSend.classList.remove("loading");
-      btnSend.removeAttribute("aria-busy");
+      alert("Saatmine ebaõnnestus. / Не удалось отправить. Проверь Apps Script доступ и права.");
+    }finally{
       validateSend();
     }
   });
 
-  // events
-  isikukood.addEventListener("input", () => { updateDOB(); validateSend(); });
+  // form listeners
+  isikukood.addEventListener("input", ()=>{ updateDOB(); validateSend(); });
   childName.addEventListener("input", validateSend);
   parentName.addEventListener("input", validateSend);
   phone.addEventListener("input", validateSend);
@@ -807,7 +570,7 @@
   agree.addEventListener("change", validateSend);
 
   // init
-  (async () => {
+  (async ()=>{
     await loadSchedule();
     renderSchedule();
     updateSummary();
