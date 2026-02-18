@@ -2,869 +2,912 @@
 <html lang="et">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Kohtla-Järve SK JÄRVE — kalkulaator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kohtla-Järve SK JÄRVE — Kalkulaator</title>
   <style>
     :root{
-      --bg:#f3f6fb;
-      --card:#fff;
+      --bg:#f5f7fb;
+      --card:#ffffff;
       --text:#0f172a;
-      --muted:#64748b;
+      --muted:#6b7280;
       --line:#e6e8ef;
-      --blue:#0a52aa;
-      --btn:#1567ff;
-      --btn2:#0b1b3a;
+      --blue:#1f57ff;
+      --blue2:#0a52aa;
+      --danger:#e11d48;
       --ok:#16a34a;
-      --warn:#ef4444;
-      --shadow: 0 10px 30px rgba(15,23,42,.08);
-      --radius: 18px;
+      --shadow:0 10px 25px rgba(17,24,39,.08);
+      --radius:18px;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       background:var(--bg);
       color:var(--text);
     }
-    .wrap{max-width:1100px;margin:28px auto;padding:0 16px;}
-    .top{
+    .wrap{
+      max-width: 1180px;
+      margin: 28px auto 60px;
+      padding: 0 16px;
+    }
+    .header{
       background:var(--card);
       border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:16px 18px;
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
       display:flex;
       gap:14px;
       align-items:center;
     }
     .logo{
-      width:56px;height:56px;border-radius:14px;
-      display:flex;align-items:center;justify-content:center;
-      overflow:hidden;background:#fff;border:1px solid var(--line);
+      width:56px;height:56px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      flex:0 0 auto;
     }
     .logo img{width:100%;height:100%;object-fit:contain}
-    .title h1{margin:0;font-size:22px;line-height:1.15}
-    .title .sub{margin-top:4px;color:var(--muted);font-size:13px}
+    .h-title{
+      font-size: 28px;
+      font-weight: 800;
+      color: #0b2a6f;
+      line-height: 1.1;
+    }
+    .h-sub{
+      margin-top: 4px;
+      font-size: 20px;              /* ✅ сделали крупнее */
+      font-weight: 700;
+      color:#243b73;
+      line-height:1.15;
+    }
+    .h-sub2{
+      margin-top: 3px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
     .grid{
-      margin-top:18px;
+      margin-top: 18px;
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:18px;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
     }
-    @media (max-width: 980px){
-      .grid{grid-template-columns:1fr}
-    }
+
     .card{
       background:var(--card);
       border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:18px;
-    }
-    .card h2{
-      margin:0 0 10px 0;
-      font-size:18px;
-    }
-    .helper{color:var(--muted);font-size:13px;margin-bottom:10px}
-    .error{
-      color:var(--warn);
-      font-size:13px;
-      margin-top:10px;
-      white-space:pre-wrap;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      min-height: 120px;
     }
 
-    /* Fee block */
-    .feeTitle{font-size:18px;margin:0 0 10px 0}
-    .feeList{display:flex;flex-direction:column;gap:10px;margin:0 0 14px 0}
-    .feeBtn{
-      width:100%;
+    .card h3{
+      margin:0 0 10px 0;
+      font-size: 18px;
+      font-weight: 800;
+      color:#0b2a6f;
+    }
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+    .error{
+      color:var(--danger);
+      font-size:13px;
+      margin-top:10px;
+      display:none;
+    }
+    .error.show{display:block}
+
+    /* Tariff chips */
+    .tariffs{
+      display:grid;
+      gap:10px;
+      margin-bottom: 12px;
+    }
+    .tariff{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding: 10px 12px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      border:1px solid var(--line);
+      gap:10px;
       background:#fff;
-      border-radius:14px;
-      padding:12px 14px;
-      cursor:pointer;
-      transition:.15s;
-      user-select:none;
     }
-    .feeBtn:hover{transform:translateY(-1px)}
-    .feeBtn.active{
-      border-color:#bfd3ff;
-      box-shadow:0 0 0 4px rgba(21,103,255,.10);
+    .tariff .left{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
     }
-    .feeBtn .left{font-weight:650}
-    .feeBtn .right{font-weight:800}
+    .tariff .t1{font-weight:800}
+    .tariff .t2{font-size:12px;color:var(--muted)}
+    .tariff .price{font-weight:900;font-size:18px}
+
+    /* Selected box */
     .selectedBox{
-      margin-top:10px;
-      border:1px dashed #cfd6e6;
-      border-radius:14px;
-      padding:12px 12px;
+      border:1px dashed #b9c2df;
       background:#fbfcff;
+      border-radius:14px;
+      padding: 12px;
+      margin: 12px 0;
     }
-    .selectedBox h3{
-      margin:0 0 8px 0;
-      font-size:16px;
-    }
-    .miniGrid{
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:8px 12px;
-      align-items:center;
-      font-size:13px;
-      color:var(--muted);
-      border-top:1px dashed #d7dbe7;
+    .selectedBox .row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-end;
       padding-top:10px;
+      border-top:1px dashed #cdd5ef;
       margin-top:10px;
+      font-size: 13px;
+      color: var(--muted);
     }
-    .miniGrid b{color:var(--text)}
-    .bigCount{
-      font-size:22px;
-      font-weight:900;
-      color:var(--text);
-    }
-    .bigFee{
-      font-size:22px;
-      font-weight:900;
-      color:var(--text);
+    .big{
+      font-size: 22px;
+      font-weight: 900;
+      color:#0b2a6f;
     }
 
+    /* Buttons (same style) */
     .btn{
-      width:100%;
+      width: 100%;
       border:0;
-      border-radius:14px;
-      padding:14px 14px;
-      margin-top:12px;
-      font-weight:900;
-      letter-spacing:.4px;
+      border-radius: 14px;
+      padding: 14px 14px;
+      font-size: 16px;
+      font-weight: 900;
       cursor:pointer;
+      background: var(--blue);
+      color:#fff;
+      box-shadow: 0 10px 20px rgba(31,87,255,.22);
+      letter-spacing:.2px;
     }
-    .btn.calc{background:#fff;border:1px solid var(--line); color:var(--btn2)}
-    .btn.calc:hover{box-shadow:0 0 0 4px rgba(2,6,23,.06)}
-    .btn.send{background:var(--btn); color:#fff}
-    .btn.send:disabled{opacity:.5; cursor:not-allowed}
-    .btn.send:hover:not(:disabled){box-shadow:0 0 0 4px rgba(21,103,255,.18)}
+    .btn:hover{filter:brightness(.97)}
+    .btn:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      box-shadow:none;
+    }
 
     /* Schedule list */
+    .groups{
+      display:grid;
+      gap: 12px;
+    }
     .group{
       border:1px solid var(--line);
-      border-radius:18px;
-      padding:14px 14px;
-      margin-top:12px;
+      border-radius: 16px;
       background:#fff;
+      padding: 12px;
     }
-    .groupHeader{
+    .groupHead{
       display:flex;
-      gap:12px;
-      align-items:center;
-      margin-bottom:10px;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom: 8px;
     }
-    .icon{
-      width:38px;height:38px;border-radius:12px;
+    .gIcon{
+      width:38px;height:38px;
+      border-radius: 12px;
       border:1px solid var(--line);
-      overflow:hidden;background:#fff;
-      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;
+      background:#fff;
       flex:0 0 auto;
+      display:flex;align-items:center;justify-content:center;
     }
-    .icon img{width:100%;height:100%;object-fit:contain}
-    .gTitle{font-weight:900;font-size:16px;margin:0}
-    .gMeta{color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.35}
-    .gMeta .addr{display:block}
-    .row{
+    .gIcon img{width:100%;height:100%;object-fit:contain}
+    .gTitle{
+      font-weight: 900;
+      font-size: 16px;
+      line-height: 1.15;
+    }
+    .gAddr{
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+    .gCoach{
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;             /* ✅ небольшой отступ, не “провал” */
+    }
+
+    .slots{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .slot{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
       display:flex;
       align-items:center;
-      gap:12px;
-      padding:11px 12px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      margin-top:10px;
-      background:#fff;
+      justify-content:space-between;
+      gap:10px;
     }
-    .row input{width:18px;height:18px}
-    .rowLabel{
-      flex:1;
-      font-size:14px;
-      font-weight:650;
-      color:#334155;
+    .slotLeft{
+      display:flex;
+      gap:10px;
+      align-items:center;
     }
-    .muted{color:var(--muted);font-weight:600}
-    .tiny{font-size:12px;color:var(--muted);margin-top:6px}
-    .hidden{display:none !important;}
+    .slotLeft input{width:18px;height:18px}
+    .slotText{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .slotMain{
+      font-weight:800;
+      font-size: 14px;
+    }
+    .slotSub{
+      font-size: 12px;
+      color: var(--muted);
+    }
 
-    /* Form + contract */
-    .sectionTitle{
-      font-size:16px;
-      font-weight:900;
-      margin:16px 0 10px 0;
-      color:#0b1b3a;
+    /* Form */
+    .formCard{
+      margin-top: 14px;
+      padding-top: 0;
     }
-    label{
+    .blockTitle{
+      font-size: 16px;
+      font-weight: 900;
+      color:#0b2a6f;
+      margin: 10px 0 10px;
+    }
+    .field{
+      margin: 10px 0;
+    }
+    .label{
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 6px;
       display:block;
-      font-size:13px;
-      color:#334155;
-      font-weight:700;
-      margin:12px 0 6px 0;
     }
-    input[type="text"], input[type="email"], textarea{
+    input[type="text"], input[type="email"], input[type="tel"]{
       width:100%;
       border:1px solid var(--line);
-      border-radius:12px;
-      padding:12px 12px;
-      font-size:14px;
+      border-radius: 12px;
+      padding: 12px 12px;
+      font-size: 14px;
       outline:none;
       background:#fff;
     }
-    input:focus, textarea:focus{
-      border-color:#bfd3ff;
-      box-shadow:0 0 0 4px rgba(21,103,255,.10);
+    input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus{
+      border-color:#b9c2df;
+      box-shadow: 0 0 0 4px rgba(31,87,255,.08);
     }
-    .birthHint{
-      margin-top:8px;
-      font-size:13px;
-      color:var(--ok);
-      font-weight:800;
-    }
-    .contract{
-      margin-top:14px;
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:12px 12px;
-      background:#fbfcff;
-    }
-    .contract h4{margin:0 0 6px 0;font-size:14px}
-    .contract a{color:var(--blue);font-weight:800;text-decoration:none}
-    .contract ul{margin:8px 0 0 18px;color:#334155;font-size:13px;line-height:1.45}
-    .contract .ru{color:#64748b;margin-top:10px}
-    .checkRow{
-      display:flex;gap:10px;align-items:flex-start;margin-top:12px;
-      font-size:13px;color:#334155;
-    }
-    .checkRow input{margin-top:2px}
 
-    .toast{
-      margin-top:12px;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid #cfe8d6;
-      background:#ecfdf3;
-      color:#065f46;
-      font-weight:800;
-      font-size:13px;
+    .birthInfo{
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted);         /* ✅ обычный стиль, без зелёного */
+      font-weight: 700;
     }
-    .toast.err{
-      border-color:#f3c6c6;
-      background:#fff1f2;
-      color:#991b1b;
+
+    .agree{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .agree input{width:18px;height:18px;margin-top:2px}
+
+    /* Requisites + Contract */
+    .infoBox{
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background:#fbfcff;
+      padding: 12px;
+      margin-top: 12px;
+    }
+    .infoBox h4{
+      margin:0 0 6px;
+      font-size: 14px;
+      font-weight: 900;
+      color:#0b2a6f;
+    }
+    .infoBox a{color:var(--blue2);text-decoration:none}
+    .infoBox a:hover{text-decoration:underline}
+    .bullets{
+      margin: 8px 0 0 18px;
+      padding: 0;
+      color:#334155;
+      font-size: 13px;
+    }
+    .bullets li{margin:6px 0}
+    .sep{
+      border-top:1px dashed #cdd5ef;
+      margin: 10px 0;
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 18px;
+      background:#0f172a;
+      color:#fff;
+      padding: 10px 14px;
+      border-radius: 14px;
+      box-shadow: 0 15px 30px rgba(0,0,0,.18);
+      font-size: 14px;
+      display:none;
+      max-width: 92vw;
+      z-index: 9999;
+    }
+    .toast.show{display:block}
+    .toast.bad{background:#7f1d1d}
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
     }
   </style>
 </head>
 
 <body>
-<div class="wrap">
-
-  <!-- Header -->
-  <div class="top">
-    <div class="logo">
-      <img id="clubLogo" alt="SK JÄRVE" />
-    </div>
-    <div class="title">
-      <h1>Kohtla-Järve SK JÄRVE</h1>
-      <div class="sub">Treeningute valik ja kuutasu arvutamine<br/>Выбор тренировок и расчёт ежемесячной платы</div>
-    </div>
-  </div>
-
-  <div class="grid">
-
-    <!-- LEFT: Schedule -->
-    <div class="card">
-      <h2>Vali sobivad treeningud. Kuu maksumus arvutatakse valitud treeningute arvu järgi nädalas.</h2>
-      <div class="helper">Выберите удобные тренировки. Оплата в месяц считается по количеству выбранных тренировок в неделю.</div>
-
-      <div id="loadError" class="error hidden"></div>
-      <div id="schedule"></div>
+  <div class="wrap">
+    <div class="header">
+      <div class="logo">
+        <!-- ✅ Лого восстановлено -->
+        <img src="assets/logo-jarve.png" alt="SK JÄRVE">
+      </div>
+      <div>
+        <div class="h-title">Kohtla-Järve SK JÄRVE</div>
+        <div class="h-sub">Treeningute valik ja kuutasu arvutamine</div>
+        <div class="h-sub2">Выбор тренировок и расчёт ежемесячной платы</div>
+      </div>
     </div>
 
-    <!-- RIGHT: Fee + Selected + Calculate + Form -->
-    <div class="card">
+    <div class="grid">
+      <!-- LEFT: schedule -->
+      <div class="card">
+        <h3>Vali sobivad treeningud. Kuu maksumus arvutatakse valitud treeningute arvu järgi nädalas.</h3>
+        <div class="small muted">Выберите удобные тренировки. Оплата в месяц считается по количеству выбранных тренировок в неделю.</div>
 
-      <h2 class="feeTitle">Kuutasu (kuus)</h2>
+        <div id="loadError" class="error"></div>
 
-      <div class="feeList" id="feeList">
-        <div class="feeBtn" data-times="1">
-          <div class="left">1 treening / nädalas <span class="muted">/ 1 раз в неделю</span></div>
-          <div class="right">25 €</div>
-        </div>
-        <div class="feeBtn" data-times="2">
-          <div class="left">2 treeningut / nädal <span class="muted">/ 2 раза в неделю</span></div>
-          <div class="right">40 €</div>
-        </div>
-        <div class="feeBtn" data-times="3">
-          <div class="left">3 treeningut / nädal <span class="muted">/ 3 раза в неделю</span></div>
-          <div class="right">50 €</div>
-        </div>
-        <div class="feeBtn" data-times="4">
-          <div class="left">4+ treeningut / nädal <span class="muted">/ 4+ раза в неделю</span></div>
-          <div class="right">60 €</div>
-        </div>
+        <div style="height:12px"></div>
+        <div id="schedule" class="groups"></div>
       </div>
 
-      <div class="selectedBox">
-        <h3>Valitud treeningud</h3>
-        <div id="chosenList" class="tiny">—</div>
+      <!-- RIGHT: pricing + selected + form -->
+      <div class="card">
+        <h3>Kuutasu (kuus)</h3>
 
-        <div class="miniGrid">
-          <div>Treeninguid nädalas</div>
-          <div style="text-align:right;">Kuutasu</div>
-
-          <div class="bigCount" id="weeklyCount">0</div>
-          <div class="bigFee" id="fee">0 €</div>
+        <div class="tariffs">
+          <div class="tariff">
+            <div class="left">
+              <div class="t1">1 treening / nädalas</div>
+              <div class="t2">1 раз в неделю</div>
+            </div>
+            <div class="price">25 €</div>
+          </div>
+          <div class="tariff">
+            <div class="left">
+              <div class="t1">2 treeningut / nädal</div>
+              <div class="t2">2 раза в неделю</div>
+            </div>
+            <div class="price">40 €</div>
+          </div>
+          <div class="tariff">
+            <div class="left">
+              <div class="t1">3 treeningut / nädal</div>
+              <div class="t2">3 раза в неделю</div>
+            </div>
+            <div class="price">50 €</div>
+          </div>
+          <div class="tariff">
+            <div class="left">
+              <div class="t1">4+ treeningut / nädal</div>
+              <div class="t2">4+ раза в неделю</div>
+            </div>
+            <div class="price">60 €</div>
+          </div>
         </div>
-      </div>
 
-      <button class="btn calc" id="btnCalc">ARVUTA SUMMA<br/><span class="muted" style="font-weight:800;">РАСЧИТАТЬ СУММУ</span></button>
+        <div class="selectedBox">
+          <div style="font-weight:900;color:#0b2a6f;">Valitud treeningud</div>
+          <div id="chosenList" class="small muted" style="margin-top:8px;">—</div>
 
-      <!-- FORM BLOCK (hidden until calculation) -->
-      <div id="formBlock" class="hidden">
+          <div class="row">
+            <div>
+              <div class="small">Treeninguid nädalas</div>
+              <div id="weeklyCount" class="big">0</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="small">Kuutasu</div>
+              <div id="fee" class="big">0 €</div>
+            </div>
+          </div>
+        </div>
 
-        <div class="sectionTitle">Andmed arve jaoks</div>
+        <!-- ✅ кнопка расчёта заметная, в одном стиле -->
+        <button id="btnCalc" class="btn" type="button">ARVUTA SUMMA<br><span style="font-size:12px;font-weight:800;opacity:.9;">РАССЧИТАТЬ СУММУ</span></button>
 
-        <label for="childName">Lapse nimi *</label>
-        <input id="childName" type="text" autocomplete="off"/>
+        <div class="formCard" id="formCard" style="display:none;">
+          <div class="blockTitle">Andmed arve jaoks</div>
 
-        <label for="isikukood">Isikukood *</label>
-        <input id="isikukood" type="text" autocomplete="off" inputmode="numeric"/>
-        <div id="birthHint" class="birthHint hidden"></div>
+          <div class="field">
+            <label class="label" for="childName">Lapse nimi *</label>
+            <input id="childName" type="text" autocomplete="name" />
+          </div>
 
-        <!-- birthDate is not typed; it appears automatically -->
-        <input id="birthDate" type="text" class="hidden" />
+          <div class="field">
+            <label class="label" for="isikukood">Isikukood *</label>
+            <input id="isikukood" type="text" inputmode="numeric" autocomplete="off" />
+            <div id="birthInfo" class="birthInfo" style="display:none;"></div>
+          </div>
 
-        <label for="parentName">Lapsevanema nimi *</label>
-        <input id="parentName" type="text" autocomplete="off"/>
+          <div class="field">
+            <label class="label" for="parentName">Lapsevanema nimi *</label>
+            <input id="parentName" type="text" autocomplete="name" />
+          </div>
 
-        <label for="phone">Telefon *</label>
-        <input id="phone" type="text" autocomplete="off" inputmode="tel"/>
+          <div class="field">
+            <label class="label" for="phone">Telefon *</label>
+            <input id="phone" type="tel" autocomplete="tel" />
+          </div>
 
-        <label for="parentEmail">E-mail *</label>
-        <input id="parentEmail" type="email" autocomplete="off"/>
+          <div class="field">
+            <label class="label" for="parentEmail">E-mail *</label>
+            <input id="parentEmail" type="email" autocomplete="email" />
+          </div>
 
-        <div class="contract">
-          <h4>Tingimused</h4>
-          <div><a id="contractLink" target="_blank" rel="noopener">www.fcjarve.ee/lepingud/</a></div>
+          <div class="agree">
+            <input id="agree" type="checkbox" />
+            <div>
+              Nõustun tingimustega ja kinnitan, et esitatud andmed on õiged.<br>
+              <span class="small muted">Я согласен(на) с условиями и подтверждаю, что данные указаны верно.</span>
+            </div>
+          </div>
 
-          <div class="sectionTitle" style="margin:12px 0 6px 0;font-size:13px;">Olulised punktid</div>
-          <ul>
-            <li>Kuutasu tuleb tasuda iga kuu 20. kuupäevaks, sõltumata sellest, kas laps osaleb treeningutel.</li>
-            <li>Treeningutest loobumisest või pausist palume teatada hiljemalt 20. kuupäevaks: info@fcjarve.ee</li>
-            <li>Puudumiste arvestus / soodustused: ümberarvestus ainult pika haiguse korral (arstitõend).</li>
-          </ul>
+          <div style="height:10px"></div>
 
-          <div class="ru">
-            <div class="sectionTitle" style="margin:12px 0 6px 0;font-size:13px;color:#334155;">Важные моменты в договоре:</div>
-            <ul>
+          <!-- ✅ кнопка отправки в том же стиле -->
+          <button id="btnSend" class="btn" type="button" disabled>SAADA / OTПРАВИТЬ</button>
+
+          <div id="sendError" class="error"></div>
+
+          <!-- ✅ Реквизиты возвращены как раньше (отдельный блок) -->
+          <div class="infoBox">
+            <h4>Rekvisiidid</h4>
+            <div class="small" style="color:#334155;line-height:1.4;">
+              MTÜ KOHTLA-JÄRVE SK JÄRVE<br/>
+              Äriregistri kood: 80029957<br/>
+              LHV Pank: EE067700771009780663<br/>
+              tel: +372 5665 8809<br/>
+              e-mail: <a href="mailto:info@fcjarve.ee">info@fcjarve.ee</a><br/>
+              Andrei ŠKALETA
+            </div>
+          </div>
+
+          <!-- ✅ Договор/условия возвращены -->
+          <div class="infoBox">
+            <h4>Tingimused</h4>
+            <div class="small">
+              <a href="http://www.fcjarve.ee/lepingud/" target="_blank" rel="noopener">www.fcjarve.ee/lepingud/</a>
+            </div>
+
+            <div class="sep"></div>
+
+            <div class="small" style="font-weight:900;color:#334155;">Olulised punktid</div>
+            <ul class="bullets">
+              <li>Kuutasu tuleb tasuda iga kuu 20. kuupäevaks, sõltumata sellest, kas laps osaleb treeningutel.</li>
+              <li>Treeningutest loobumisest või pausist palume teatada hiljemalt 20. kuupäevaks: <a href="mailto:info@fcjarve.ee">info@fcjarve.ee</a></li>
+              <li>Puudumiste arvestus / soodustused: ümberarvestus ainult pika haiguse korral (arstitõend).</li>
+            </ul>
+
+            <div class="sep"></div>
+
+            <div class="small muted" style="font-weight:900;">Важные моменты в договоре:</div>
+            <ul class="bullets" style="color:#475569;">
               <li>Оплату за месяц нужно вносить до 20 числа каждого месяца, независимо от посещения ребёнком тренировок.</li>
-              <li>О прекращении или паузе просим сообщать не позднее 20 числа, написав: info@fcjarve.ee</li>
-              <li>Пропуски и перерасчёт возможен только при длительной болезни (по справке от врача).</li>
+              <li>О прекращении или паузе просим сообщать не позднее 20 числа, написав: <a href="mailto:info@fcjarve.ee">info@fcjarve.ee</a></li>
+              <li>Перерасчёт возможен только при длительной болезни (по справке от врача).</li>
             </ul>
           </div>
         </div>
-
-        <div class="checkRow">
-          <input id="agree" type="checkbox"/>
-          <div>
-            Nõustun tingimustega ja kinnitan, et esitatud andmed on õiged.<br/>
-            <span class="muted">Я согласен(на) с условиями и подтверждаю, что данные указаны верно.</span>
-          </div>
-        </div>
-
-        <button class="btn send" id="btnSend" disabled>SAADA / ОТПРАВИТЬ</button>
-
-        <div id="toast" class="toast hidden"></div>
       </div>
-
-      <div id="rightError" class="error hidden"></div>
     </div>
-
   </div>
-</div>
 
-<script>
-  /***********************
-   * SETTINGS
-   ***********************/
-  const API_URL = "https://script.google.com/macros/s/AKfycbyb4Gpl-2NY2B54KZa6riR0eZaPR68K2RhK8gAA_uCm9YeDVNOcEVGZVB9TXtfz1g1U/exec";
+  <div id="toast" class="toast"></div>
 
-  // ВАЖНО: у тебя папка называется "ресурсы" (русскими буквами), поэтому URL уже закодирован
-  const ASSETS_BASE = "https://skjarve.github.io/skjarve-kalkulaator/%D1%80%D0%B5%D1%81%D1%83%D1%80%D1%81%D1%8B/";
-  const LOGO_URL = ASSETS_BASE + "logo-jarve.png";
-  const CONTRACT_URL = "http://www.fcjarve.ee/lepingud/";
+  <script>
+    // ✅ ТВОЙ URL Apps Script
+    const API_URL = "https://script.google.com/macros/s/AKfycbzh4Q7tPqqtUbzel9ORkjU0OMrFXId3Ee8Pi1yOZ9vLN9ay9AP6cmIuV2xeuIZVtq2J/exec";
 
-  /***********************
-   * DOM
-   ***********************/
-  const els = {
-    schedule: document.getElementById("schedule"),
-    chosenList: document.getElementById("chosenList"),
-    weeklyCount: document.getElementById("weeklyCount"),
-    fee: document.getElementById("fee"),
-    btnCalc: document.getElementById("btnCalc"),
-    formBlock: document.getElementById("formBlock"),
-    btnSend: document.getElementById("btnSend"),
-    agree: document.getElementById("agree"),
-
-    childName: document.getElementById("childName"),
-    isikukood: document.getElementById("isikukood"),
-    birthHint: document.getElementById("birthHint"),
-    birthDate: document.getElementById("birthDate"),
-    parentName: document.getElementById("parentName"),
-    phone: document.getElementById("phone"),
-    parentEmail: document.getElementById("parentEmail"),
-
-    toast: document.getElementById("toast"),
-    loadError: document.getElementById("loadError"),
-    rightError: document.getElementById("rightError"),
-    clubLogo: document.getElementById("clubLogo"),
-    contractLink: document.getElementById("contractLink")
-  };
-
-  els.clubLogo.src = LOGO_URL;
-  els.contractLink.href = CONTRACT_URL;
-  els.contractLink.textContent = CONTRACT_URL.replace(/^https?:\/\//,''); // красиво
-
-  /***********************
-   * STATE
-   ***********************/
-  let scheduleRows = [];
-  const selected = new Map(); // key -> row object
-  let calculated = false;
-
-  /***********************
-   * UTIL
-   ***********************/
-  function escapeHtml(s){
-    return String(s ?? "")
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;")
-      .replace(/'/g,"&#039;");
-  }
-
-  function normalizeActive(v){
-    const s = String(v ?? "").trim().toLowerCase();
-    if(!s) return true;
-    if(["0","false","скрыть","hide","no"].includes(s)) return false;
-    if(["1","true","показать","show","yes"].includes(s)) return true;
-    return true;
-  }
-
-  function toNumber(v){
-    const n = Number(String(v ?? "").replace(",", "."));
-    return Number.isFinite(n) ? n : 999999;
-  }
-
-  // твой столбец называется "adress" — поддерживаем только его + на всякий случай "address"
-  function getAddress(row){
-    return (row.adress ?? row.address ?? "").toString().trim();
-  }
-
-  function iconUrl(row){
-    const file = (row.icon ?? "").toString().trim();
-    if(!file) return "";
-    return ASSETS_BASE + encodeURIComponent(file);
-  }
-
-  function keyOf(row){
-    // уникальный ключ (спорт+место+возраст+день+время)
-    return [
-      (row.sport ?? "").toString().trim(),
-      (row.place ?? "").toString().trim(),
-      (row.age ?? "").toString().trim(),
-      (row.day ?? "").toString().trim(),
-      (row.time ?? "").toString().trim()
-    ].join(" | ");
-  }
-
-  function calcMonthlyFee(timesPerWeek){
-    const n = Number(timesPerWeek) || 0;
-    if(n<=0) return 0;
-    if(n===1) return 25;
-    if(n===2) return 40;
-    if(n===3) return 50;
-    return 60;
-  }
-
-  function feeLabel(times){
-    if(times===1) return "1× nädalas / 1 раз в неделю";
-    if(times===2) return "2× nädalas / 2 раза в неделю";
-    if(times===3) return "3× nädalas / 3 раза в неделю";
-    return "4+× nädalas / 4+ раза в неделю";
-  }
-
-  function buildShortLabel(row){
-    // Формат как ты хотела:
-    // "Võimlemine — TAMMIKU PÕHIKOOL - 3–10a — T 17:00–18:00"
-    const sport = (row.sport ?? "").toString().trim();
-    const place = (row.place ?? "").toString().trim();
-    const age = (row.age ?? "").toString().trim();
-    const day = (row.day ?? "").toString().trim();
-    const time = (row.time ?? "").toString().trim();
-
-    const left = [sport, place].filter(Boolean).join(" — ");
-    const right = [age, [day,time].filter(Boolean).join(" ")].filter(Boolean).join(" — ");
-    if(left && right) return `${left} - ${right}`;
-    return left || right || "—";
-  }
-
-  function showToast(msg, isErr=false){
-    els.toast.textContent = msg;
-    els.toast.classList.remove("hidden");
-    els.toast.classList.toggle("err", isErr);
-  }
-  function hideToast(){
-    els.toast.classList.add("hidden");
-    els.toast.classList.remove("err");
-    els.toast.textContent = "";
-  }
-
-  function setError(el, msg){
-    el.textContent = msg || "";
-    el.classList.toggle("hidden", !msg);
-  }
-
-  /***********************
-   * LOAD SCHEDULE (GET)
-   ***********************/
-  async function loadSchedule(){
-    setError(els.loadError, "");
-    try{
-      const res = await fetch(API_URL, { method:"GET" });
-      const data = await res.json();
-      if(!data.ok) throw new Error(data.error || "API error");
-
-      // Берём только active и сортируем
-      const rows = (data.rows || [])
-        .filter(r => normalizeActive(r.active))
-        .sort((a,b) => toNumber(a.sort) - toNumber(b.sort));
-
-      scheduleRows = rows;
-      renderSchedule(rows);
-    }catch(err){
-      setError(els.loadError, "Viga / Ошибка загрузки расписания: " + (err?.message || String(err)));
-    }
-  }
-
-  /***********************
-   * RENDER SCHEDULE
-   ***********************/
-  function renderSchedule(rows){
-    els.schedule.innerHTML = "";
-    if(!rows.length){
-      els.schedule.innerHTML = `<div class="tiny">Расписание пустое.</div>`;
-      return;
-    }
-
-    // Группируем по sport+place+coach+adress+icon
-    const groups = new Map();
-    for(const r of rows){
-      const sport = (r.sport ?? "").toString().trim();
-      const place = (r.place ?? "").toString().trim();
-      const coach = (r.coach ?? "").toString().trim();
-      const addr = getAddress(r);
-      const icon = (r.icon ?? "").toString().trim();
-      const gk = [sport,place,coach,addr,icon].join(" || ");
-      if(!groups.has(gk)) groups.set(gk, { sport, place, coach, addr, icon, items: [] });
-      groups.get(gk).items.push(r);
-    }
-
-    // Рендерим группы в порядке первого элемента (уже sorted общим)
-    const rendered = new Set();
-    for(const r of rows){
-      const sport = (r.sport ?? "").toString().trim();
-      const place = (r.place ?? "").toString().trim();
-      const coach = (r.coach ?? "").toString().trim();
-      const addr = getAddress(r);
-      const icon = (r.icon ?? "").toString().trim();
-      const gk = [sport,place,coach,addr,icon].join(" || ");
-      if(rendered.has(gk)) continue;
-      rendered.add(gk);
-
-      const g = groups.get(gk);
-      const gDiv = document.createElement("div");
-      gDiv.className = "group";
-
-      const header = document.createElement("div");
-      header.className = "groupHeader";
-
-      const ic = document.createElement("div");
-      ic.className = "icon";
-      const url = iconUrl({icon:g.icon});
-      ic.innerHTML = url ? `<img src="${url}" alt="icon">` : "";
-
-      const meta = document.createElement("div");
-      meta.style.flex = "1";
-
-      const title = document.createElement("div");
-      title.className = "gTitle";
-      title.textContent = `${g.sport} — ${g.place}`;
-
-      const metaLine = document.createElement("div");
-      metaLine.className = "gMeta";
-      const addrHtml = g.addr ? `<span class="addr">${escapeHtml(g.addr)}</span>` : "";
-      const coachHtml = g.coach ? `<span>${escapeHtml(g.coach)}</span>` : "";
-      metaLine.innerHTML = `${addrHtml}${coachHtml ? (addrHtml ? "<br/>" : "") + coachHtml : ""}`;
-
-      meta.appendChild(title);
-      meta.appendChild(metaLine);
-
-      header.appendChild(ic);
-      header.appendChild(meta);
-
-      gDiv.appendChild(header);
-
-      // Items (checkbox rows)
-      for(const item of g.items){
-        const rowDiv = document.createElement("label");
-        rowDiv.className = "row";
-
-        const key = keyOf(item);
-
-        const cb = document.createElement("input");
-        cb.type = "checkbox";
-        cb.checked = selected.has(key);
-        cb.addEventListener("change", () => {
-          if(cb.checked) selected.set(key, item);
-          else selected.delete(key);
-
-          calculated = false;
-          els.formBlock.classList.add("hidden");
-          updateChosenUI();
-        });
-
-        const lbl = document.createElement("div");
-        lbl.className = "rowLabel";
-        // Как раньше: "3–10a — T 17:00–18:00"
-        const age = (item.age ?? "").toString().trim();
-        const day = (item.day ?? "").toString().trim();
-        const time = (item.time ?? "").toString().trim();
-        lbl.textContent = `${age} — ${day} ${time}`.trim();
-
-        rowDiv.appendChild(cb);
-        rowDiv.appendChild(lbl);
-        gDiv.appendChild(rowDiv);
-      }
-
-      els.schedule.appendChild(gDiv);
-    }
-
-    updateChosenUI();
-  }
-
-  /***********************
-   * CHOSEN + FEE UI
-   ***********************/
-  function updateChosenUI(){
-    hideToast();
-    setError(els.rightError, "");
-
-    const arr = Array.from(selected.values());
-    const times = arr.length;
-    const fee = calcMonthlyFee(times);
-
-    els.weeklyCount.textContent = String(times);
-    els.fee.textContent = `${fee} €`;
-
-    // Highlight fee buttons
-    document.querySelectorAll(".feeBtn").forEach(btn => {
-      const t = Number(btn.dataset.times);
-      const active = (t===1 && times===1) || (t===2 && times===2) || (t===3 && times===3) || (t===4 && times>=4);
-      btn.classList.toggle("active", active);
-    });
-
-    // Chosen list text
-    if(!arr.length){
-      els.chosenList.textContent = "—";
-    }else{
-      // красиво, как строками
-      const lines = arr.map(r => buildShortLabel(r));
-      els.chosenList.innerHTML = lines.map(x => `<div>• ${escapeHtml(x)}</div>`).join("");
-    }
-
-    // Send disabled until calculated + agree + required fields
-    updateSendEnabled();
-  }
-
-  function updateSendEnabled(){
-    const reqOk =
-      calculated &&
-      els.agree.checked &&
-      els.childName.value.trim() &&
-      els.isikukood.value.trim() &&
-      els.parentName.value.trim() &&
-      els.phone.value.trim() &&
-      els.parentEmail.value.trim();
-
-    els.btnSend.disabled = !reqOk;
-  }
-
-  /***********************
-   * CALCULATE BUTTON
-   ***********************/
-  els.btnCalc.addEventListener("click", () => {
-    const times = selected.size;
-    if(times<=0){
-      showToast("Palun vali vähemalt 1 treening. / Пожалуйста, выберите хотя бы 1 тренировку.", true);
-      return;
-    }
-    calculated = true;
-    els.formBlock.classList.remove("hidden");
-    showToast(`Arvutatud: ${times}× nädalas → ${calcMonthlyFee(times)} €`, false);
-    updateSendEnabled();
-
-    // scroll to form
-    els.formBlock.scrollIntoView({behavior:"smooth", block:"start"});
-  });
-
-  /***********************
-   * ISIKUKOOD -> BIRTHDATE (show only when valid)
-   ***********************/
-  function birthFromIsikukood(codeRaw){
-    const code = String(codeRaw||"").replace(/\s+/g,"");
-    if(!/^\d{11}$/.test(code)) return "";
-    const first = Number(code[0]);
-    const yy = Number(code.slice(1,3));
-    const mm = Number(code.slice(3,5));
-    const dd = Number(code.slice(5,7));
-
-    let century = 0;
-    if(first===1 || first===2) century = 1800;
-    else if(first===3 || first===4) century = 1900;
-    else if(first===5 || first===6) century = 2000;
-    else if(first===7 || first===8) century = 2100;
-    else return "";
-
-    const year = century + yy;
-    if(mm<1 || mm>12) return "";
-    if(dd<1 || dd>31) return "";
-
-    const d = String(dd).padStart(2,"0");
-    const m = String(mm).padStart(2,"0");
-    return `${d}.${m}.${year}`;
-  }
-
-  els.isikukood.addEventListener("input", () => {
-    const b = birthFromIsikukood(els.isikukood.value);
-    if(b){
-      els.birthDate.value = b;
-      els.birthHint.textContent = `Sünnikuupäev: ${b}`;
-      els.birthHint.classList.remove("hidden");
-    }else{
-      els.birthDate.value = "";
-      els.birthHint.textContent = "";
-      els.birthHint.classList.add("hidden");
-    }
-    updateSendEnabled();
-  });
-
-  /***********************
-   * Form fields -> enable send
-   ***********************/
-  ["input","change"].forEach(evt=>{
-    els.childName.addEventListener(evt, updateSendEnabled);
-    els.parentName.addEventListener(evt, updateSendEnabled);
-    els.phone.addEventListener(evt, updateSendEnabled);
-    els.parentEmail.addEventListener(evt, updateSendEnabled);
-    els.agree.addEventListener(evt, updateSendEnabled);
-  });
-
-  /***********************
-   * SUBMIT (POST)
-   ***********************/
-  els.btnSend.addEventListener("click", async () => {
-    setError(els.rightError, "");
-    hideToast();
-
-    if(!calculated){
-      showToast("Сначала нажми ARVUTA SUMMA / РАССЧИТАТЬ СУММУ.", true);
-      return;
-    }
-    if(!els.agree.checked){
-      showToast("Palun kinnita tingimused. / Пожалуйста, подтвердите условия.", true);
-      return;
-    }
-
-    const trainings = Array.from(selected.values()).map(r => ({
-      sport: (r.sport ?? "").toString().trim(),
-      place: (r.place ?? "").toString().trim(),
-      adress: getAddress(r),           // ВАЖНО: именно adress
-      coach: (r.coach ?? "").toString().trim(),
-      icon: (r.icon ?? "").toString().trim(),
-      age: (r.age ?? "").toString().trim(),
-      day: (r.day ?? "").toString().trim(),
-      time: (r.time ?? "").toString().trim(),
-      sort: r.sort ?? ""
-    }));
-
-    const trainingsLines = trainings.map(t => {
-      const left = [t.sport, t.place].filter(Boolean).join(" — ");
-      const right = [t.age, [t.day,t.time].filter(Boolean).join(" ")].filter(Boolean).join(" — ");
-      return (left && right) ? `${left} - ${right}` : (left || right || "—");
-    });
-
-    const payload = {
-      parentName: els.parentName.value.trim(),
-      parentEmail: els.parentEmail.value.trim(),
-      phone: els.phone.value.trim(),
-      childName: els.childName.value.trim(),
-      isikukood: els.isikukood.value.trim(),
-      birthDate: els.birthDate.value.trim(), // optional, script can ignore if not used
-      trainingsText: trainingsLines.length ? ("Valitud treeningud:\n" + trainingsLines.map(x=>"- "+x).join("\n")) : "Valitud treeningud:\n—",
-      trainings: trainings
+    const els = {
+      schedule: document.getElementById("schedule"),
+      loadError: document.getElementById("loadError"),
+      chosenList: document.getElementById("chosenList"),
+      weeklyCount: document.getElementById("weeklyCount"),
+      fee: document.getElementById("fee"),
+      btnCalc: document.getElementById("btnCalc"),
+      formCard: document.getElementById("formCard"),
+      childName: document.getElementById("childName"),
+      isikukood: document.getElementById("isikukood"),
+      birthInfo: document.getElementById("birthInfo"),
+      parentName: document.getElementById("parentName"),
+      phone: document.getElementById("phone"),
+      parentEmail: document.getElementById("parentEmail"),
+      agree: document.getElementById("agree"),
+      btnSend: document.getElementById("btnSend"),
+      sendError: document.getElementById("sendError"),
+      toast: document.getElementById("toast")
     };
 
-    try{
-      els.btnSend.disabled = true;
+    const selected = new Map(); // key -> row
+    let scheduleRows = [];
+    let calculated = false;
 
-      const res = await fetch(API_URL, {
-        method:"POST",
-        headers: { "Content-Type":"application/json" },
-        body: JSON.stringify(payload)
+    function showToast(msg, bad=false){
+      els.toast.textContent = msg;
+      els.toast.classList.toggle("bad", !!bad);
+      els.toast.classList.add("show");
+      setTimeout(()=>els.toast.classList.remove("show"), 4500);
+    }
+    function setError(el, msg){
+      el.textContent = msg || "";
+      el.classList.toggle("show", !!msg);
+    }
+
+    function getAddress(row){
+      // ✅ поддерживаем и adress и address
+      const a = (row.adress ?? row.address ?? "").toString().trim();
+      return a;
+    }
+
+    function keyOf(row){
+      return [
+        row.sport, row.place, getAddress(row), row.coach, row.age, row.day, row.time, row.sort
+      ].map(v => (v ?? "").toString().trim()).join("|");
+    }
+
+    function feeByCount(n){
+      if(n<=0) return 0;
+      if(n===1) return 25;
+      if(n===2) return 40;
+      if(n===3) return 50;
+      return 60;
+    }
+
+    function parseBirthFromIsikukood(code){
+      const c = (code||"").replace(/\s+/g,"");
+      if(!/^\d{11}$/.test(c)) return "";
+      const first = Number(c[0]);
+      const yy = Number(c.slice(1,3));
+      const mm = Number(c.slice(3,5));
+      const dd = Number(c.slice(5,7));
+      let century = 0;
+      if(first===1||first===2) century=1800;
+      else if(first===3||first===4) century=1900;
+      else if(first===5||first===6) century=2000;
+      else if(first===7||first===8) century=2100;
+      else return "";
+      if(mm<1||mm>12) return "";
+      if(dd<1||dd>31) return "";
+      const year = century + yy;
+      const pad = (x)=>String(x).padStart(2,"0");
+      return `${pad(dd)}.${pad(mm)}.${year}`;
+    }
+
+    function updateBirthInfo(){
+      const date = parseBirthFromIsikukood(els.isikukood.value);
+      if(date){
+        els.birthInfo.style.display = "block";
+        els.birthInfo.textContent = `Sünnikuupäev / Дата рождения: ${date}`;
+      } else {
+        els.birthInfo.style.display = "none";
+        els.birthInfo.textContent = "";
+      }
+    }
+
+    function renderChosen(){
+      if(selected.size===0){
+        els.chosenList.textContent = "—";
+        els.weeklyCount.textContent = "0";
+        els.fee.textContent = "0 €";
+        return;
+      }
+      const arr = Array.from(selected.values());
+
+      const lines = arr.map(r=>{
+        const sport = (r.sport||"").toString().trim();
+        const place = (r.place||"").toString().trim();
+        const age = (r.age||"").toString().trim();
+        const day = (r.day||"").toString().trim();
+        const time = (r.time||"").toString().trim();
+        const left = [sport, place].filter(Boolean).join(" — ");
+        const right = [age, [day,time].filter(Boolean).join(" ")].filter(Boolean).join(" — ");
+        return (left && right) ? `${left} - ${right}` : (left || right || "—");
       });
 
-      const data = await res.json();
-      if(!data.ok) throw new Error(data.error || "API error");
-
-      showToast("Aitäh! Avaldus on saadetud. / Спасибо! Заявка отправлена.", false);
-
-      // reset only form fields (keep selected trainings maybe? better to clear everything)
-      selected.clear();
-      calculated = false;
-      els.formBlock.classList.add("hidden");
-      els.childName.value = "";
-      els.isikukood.value = "";
-      els.birthDate.value = "";
-      els.birthHint.textContent = "";
-      els.birthHint.classList.add("hidden");
-      els.parentName.value = "";
-      els.phone.value = "";
-      els.parentEmail.value = "";
-      els.agree.checked = false;
-
-      // re-render to clear checkboxes
-      renderSchedule(scheduleRows);
-
-    }catch(err){
-      setError(els.rightError, "Ошибка отправки: " + (err?.message || String(err)));
-      showToast("Ошибка отправки. Проверь /exec и права доступа Web App.", true);
-    }finally{
-      updateSendEnabled();
+      els.chosenList.innerHTML = lines.map(x=>`• ${escapeHtml(x)}`).join("<br>");
+      const n = selected.size;
+      els.weeklyCount.textContent = String(n);
+      els.fee.textContent = `${feeByCount(n)} €`;
     }
-  });
 
-  /***********************
-   * INIT
-   ***********************/
-  loadSchedule();
-</script>
+    function escapeHtml(s){
+      return String(s??"")
+        .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;").replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+    }
+
+    function groupRows(rows){
+      // group by sport+place+address+coach+icon
+      const map = new Map();
+      for(const r of rows){
+        const sport = (r.sport||"").toString().trim();
+        const place = (r.place||"").toString().trim();
+        const adress = getAddress(r);
+        const coach = (r.coach||"").toString().trim();
+        const icon = (r.icon||"").toString().trim();
+        const gk = [sport,place,adress,coach,icon].join("||");
+        if(!map.has(gk)) map.set(gk, {sport,place,adress,coach,icon, rows:[]});
+        map.get(gk).rows.push(r);
+      }
+      return Array.from(map.values());
+    }
+
+    function iconUrl(iconFile){
+      const f = (iconFile||"").toString().trim();
+      if(!f) return "assets/logo-jarve.png";
+      // ✅ иконки лежат в assets/
+      return `assets/${encodeURIComponent(f)}`;
+    }
+
+    function renderSchedule(){
+      els.schedule.innerHTML = "";
+      const groups = groupRows(scheduleRows);
+
+      for(const g of groups){
+        const box = document.createElement("div");
+        box.className = "group";
+
+        const head = document.createElement("div");
+        head.className = "groupHead";
+
+        const ic = document.createElement("div");
+        ic.className = "gIcon";
+        const img = document.createElement("img");
+        img.src = iconUrl(g.icon);
+        img.alt = g.sport || "icon";
+        img.onerror = ()=>{ img.src="assets/logo-jarve.png"; };
+        ic.appendChild(img);
+
+        const meta = document.createElement("div");
+        const title = document.createElement("div");
+        title.className = "gTitle";
+        title.textContent = `${g.sport || ""} — ${g.place || ""}`.trim();
+
+        const addr = document.createElement("div");
+        addr.className = "gAddr";
+        addr.textContent = g.adress || "";
+
+        const coach = document.createElement("div");
+        coach.className = "gCoach";
+        coach.textContent = g.coach ? `Treenerid: ${g.coach}` : "";
+
+        meta.appendChild(title);
+        if(g.adress) meta.appendChild(addr);
+        if(g.coach) meta.appendChild(coach);
+
+        head.appendChild(ic);
+        head.appendChild(meta);
+        box.appendChild(head);
+
+        const slots = document.createElement("div");
+        slots.className = "slots";
+
+        // сортируем внутри группы
+        g.rows.sort((a,b)=>{
+          const sa = Number(String(a.sort||"").replace(",","."));
+          const sb = Number(String(b.sort||"").replace(",","."));
+          return (isFinite(sa)?sa:999999) - (isFinite(sb)?sb:999999);
+        });
+
+        for(const r of g.rows){
+          const rowKey = keyOf(r);
+
+          const slot = document.createElement("div");
+          slot.className = "slot";
+
+          const left = document.createElement("div");
+          left.className = "slotLeft";
+
+          const cb = document.createElement("input");
+          cb.type = "checkbox";
+          cb.checked = selected.has(rowKey);
+          cb.addEventListener("change", ()=>{
+            if(cb.checked) selected.set(rowKey, r);
+            else selected.delete(rowKey);
+            calculated = false;
+            els.formCard.style.display = "none";
+            els.btnSend.disabled = true;
+            renderChosen();
+          });
+
+          const txt = document.createElement("div");
+          txt.className = "slotText";
+
+          const main = document.createElement("div");
+          main.className = "slotMain";
+          main.textContent = `${(r.age||"").toString().trim()} — ${(r.day||"").toString().trim()} ${(r.time||"").toString().trim()}`.trim();
+
+          const sub = document.createElement("div");
+          sub.className = "slotSub";
+          sub.textContent = ""; // оставим пустым, чтобы не перегружать
+
+          txt.appendChild(main);
+          // txt.appendChild(sub);
+
+          left.appendChild(cb);
+          left.appendChild(txt);
+
+          slot.appendChild(left);
+          slots.appendChild(slot);
+        }
+
+        box.appendChild(slots);
+        els.schedule.appendChild(box);
+      }
+    }
+
+    async function loadSchedule(){
+      setError(els.loadError, "");
+      try{
+        const res = await fetch(API_URL, { method:"GET" });
+        const data = await res.json();
+        if(!data.ok) throw new Error(data.error || "API error");
+
+        scheduleRows = Array.isArray(data.rows) ? data.rows : [];
+        if(scheduleRows.length===0){
+          setError(els.loadError, "Расписание пустое или все строки скрыты (active).");
+        }
+        renderSchedule();
+      }catch(err){
+        setError(els.loadError, "Ошибка загрузки расписания: " + (err?.message || err));
+      }
+    }
+
+    function validateBeforeSend(){
+      if(selected.size===0){
+        showToast("Выберите хотя бы одну тренировку.", true);
+        return false;
+      }
+      if(!calculated){
+        showToast("Сначала нажмите ARVUTA SUMMA / РАССЧИТАТЬ СУММУ.", true);
+        return false;
+      }
+      const required = [
+        ["Lapse nimi", els.childName.value.trim()],
+        ["Isikukood", els.isikukood.value.trim()],
+        ["Lapsevanema nimi", els.parentName.value.trim()],
+        ["Telefon", els.phone.value.trim()],
+        ["E-mail", els.parentEmail.value.trim()],
+      ];
+      for(const [name,val] of required){
+        if(!val){
+          showToast("Заполните поле: " + name, true);
+          return false;
+        }
+      }
+      if(!els.agree.checked){
+        showToast("Подтвердите условия.", true);
+        return false;
+      }
+      return true;
+    }
+
+    // ✅ FORM submit (без CORS)
+    function submitForm(){
+      setError(els.sendError, "");
+
+      const trainings = Array.from(selected.values()).map(r => ({
+        sport: (r.sport ?? "").toString().trim(),
+        place: (r.place ?? "").toString().trim(),
+        adress: getAddress(r),
+        coach: (r.coach ?? "").toString().trim(),
+        icon: (r.icon ?? "").toString().trim(),
+        age: (r.age ?? "").toString().trim(),
+        day: (r.day ?? "").toString().trim(),
+        time: (r.time ?? "").toString().trim(),
+        sort: (r.sort ?? "")
+      }));
+
+      const trainingsLines = trainings.map(t => {
+        const left = [t.sport, t.place].filter(Boolean).join(" — ");
+        const right = [t.age, [t.day,t.time].filter(Boolean).join(" ")].filter(Boolean).join(" — ");
+        return (left && right) ? `${left} - ${right}` : (left || right || "—");
+      });
+
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = API_URL;
+      form.style.display = "none";
+
+      const fields = {
+        parentName: els.parentName.value.trim(),
+        parentEmail: els.parentEmail.value.trim(),
+        phone: els.phone.value.trim(),
+        childName: els.childName.value.trim(),
+        isikukood: els.isikukood.value.trim(),
+        trainingsText: trainingsLines.length
+          ? ("Valitud treeningud:\n" + trainingsLines.map(x=>"- "+x).join("\n"))
+          : "Valitud treeningud:\n—",
+        trainingsJson: JSON.stringify(trainings)
+      };
+
+      for(const [k,v] of Object.entries(fields)){
+        const inp = document.createElement("input");
+        inp.type = "hidden";
+        inp.name = k;
+        inp.value = v;
+        form.appendChild(inp);
+      }
+
+      document.body.appendChild(form);
+      form.submit();
+    }
+
+    // Events
+    els.isikukood.addEventListener("input", updateBirthInfo);
+
+    els.btnCalc.addEventListener("click", ()=>{
+      setError(els.sendError, "");
+      if(selected.size===0){
+        showToast("Выберите тренировки слева.", true);
+        return;
+      }
+      calculated = true;
+      els.formCard.style.display = "block";
+      els.btnSend.disabled = !els.agree.checked;
+
+      // прокрутка к форме
+      els.formCard.scrollIntoView({behavior:"smooth", block:"start"});
+      showToast("Сумма рассчитана. Теперь заполните форму и отправьте.", false);
+    });
+
+    els.agree.addEventListener("change", ()=>{
+      els.btnSend.disabled = !(calculated && els.agree.checked);
+    });
+
+    els.btnSend.addEventListener("click", ()=>{
+      if(!validateBeforeSend()) return;
+      submitForm();
+    });
+
+    // Success / error back from redirect
+    (function handleSent(){
+      const qp = new URLSearchParams(location.search);
+      if(qp.get("sent")==="1"){
+        showToast("Aitäh! Avaldus on saadetud. / Спасибо! Заявка отправлена.", false);
+        // убираем параметр, чтобы не повторялось при обновлении
+        history.replaceState({}, "", location.pathname);
+      }
+      if(qp.get("sent")==="0"){
+        const err = qp.get("err") ? decodeURIComponent(qp.get("err")) : "unknown";
+        showToast("Ошибка отправки: " + err, true);
+        history.replaceState({}, "", location.pathname);
+      }
+    })();
+
+    // Init
+    renderChosen();
+    loadSchedule();
+  </script>
 </body>
 </html>
